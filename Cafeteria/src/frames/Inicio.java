@@ -51,12 +51,16 @@ public class Inicio extends javax.swing.JFrame {
         setTitle("Principal");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPasswordFieldContraseña.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jPasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 140, -1));
 
         jLabelContraseña.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabelContraseña.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelContraseña.setText("Contraseña :");
         getContentPane().add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
+
+        jTextFieldUsuario.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 140, -1));
 
         jLabelUsuario.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -90,6 +94,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 190, -1));
 
+        jButtonAcceder.setBackground(new java.awt.Color(255, 153, 102));
         jButtonAcceder.setText("Acceder");
         jButtonAcceder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
