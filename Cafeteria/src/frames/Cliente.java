@@ -71,9 +71,9 @@ public class Cliente extends javax.swing.JFrame {
             };
             modelo.addColumn("ID Cliente");
             modelo.addColumn("Nombre");
-            modelo.addColumn("Telefono");
-            modelo.addColumn("NIT");
             modelo.addColumn("Direccion");
+            modelo.addColumn("Telefono");
+            modelo.addColumn("Nit");
             
             jTable1.setModel(modelo);
             String sql="";
@@ -305,7 +305,7 @@ public class Cliente extends javax.swing.JFrame {
         try {Connection cn=Conexion.conectar();
         {
             if(Validar()==0){
-                PreparedStatement pst = cn.prepareStatement("INSERT INTO cliente(Nombre,Direccion,Telefono,Nit)Values(?,?,?,?)");
+                PreparedStatement pst = cn.prepareStatement("INSERT INTO cliente(Nombre,Telefono,Nit,Direccion)Values(?,?,?,?)");
                 pst.setString(1,jTextFieldNombre.getText());
                 pst.setString(2,jTextFieldTelefono.getText());
                 pst.setString(3,jTextFieldNit.getText());
@@ -317,8 +317,9 @@ public class Cliente extends javax.swing.JFrame {
                     MostrarDatos("");
                     jTextFieldNombre.setText(null);
                     jTextFieldTelefono.setText(null);
-                    jTextFieldNit.setText(null);
                     jTextFieldDireccion.setText(null);
+                    jTextFieldNit.setText(null);
+                    jTextFieldTelefono.setText(null);
                 }else{
                     JOptionPane.showMessageDialog(null,"Error al Agragar");
                 }//fin del segundo if
@@ -464,6 +465,7 @@ public class Cliente extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

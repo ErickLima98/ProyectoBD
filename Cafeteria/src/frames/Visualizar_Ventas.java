@@ -14,6 +14,8 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import Seguridad.Conexion;
 import Seguridad.Usuario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author USUARIO
@@ -23,85 +25,43 @@ public class Visualizar_Ventas extends javax.swing.JFrame {
     /**
      * Creates new form Visualizar_Ventas
      */
-    public Visualizar_Ventas() {
-        this.user = user;//Se asigna el usuaario que hizo login
+   public Visualizar_Ventas(Usuario user) throws SQLException {
+        this.user=user;//Se asigna el usuaario que hizo login
         this.setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/cafe.png")).getImage());
-
+        setIconImage(new ImageIcon(getClass().getResource("/Imagen/cafe.png")).getImage());
+         
         initComponents();
+        try{
+            Connection cn=Conexion.conectar();         
+        
         this.setLocationRelativeTo(null);
-
-        MostrarDatos("");
-    }
-    void MostrarDatos(String valor){
-        try {
-            Connection cn = Conexion.conectar();
-
-            DefaultTableModel modelo = new DefaultTableModel();
-
-            modelo.addColumn("Id Venta");
-            modelo.addColumn("Cantidad ");
-            modelo.addColumn("Total");
-
-            jTable1.setModel(modelo);
-            String sql = "";
-
-            if (valor.equals("")) {
-                sql = " select ven.idVenta , ped.Cantidad_Medi, ven.Total  from pedido ped  inner join venta ven on ped.Venta_idVenta = ven.idVenta  where (ven.Anulado =0 )group by ven.idVenta ";
-            } else {
-                sql = " select med.Nombre, ped.Cantidad_Medi from pedido ped  inner join lote lot on ped.Lote_idLotes= lot.idLotes inner join medicamento med on lot.Medicamento_idMedicamento = med.idMedicamento inner join venta ven on ped.Venta_idVenta = ven.idVenta  where (ven.idVenta = " + valor + "  ) ";
-            }
-            String[] datos = new String[9];
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
-
-                modelo.addRow(datos);
-
-                jTable1.setModel(modelo);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex);
+        String sql = "SELECT SUM(ve.Total) FROM venta ve";
+        String sql2 = "SELECT SUM(lo.Costo *  lo.Existencia) FROM lote lo INNER JOIN compra co ON lo.Compra_idCompra = co.idCompra;";
+       
+        Statement st=cn.createStatement();
+        ResultSet rs=st.executeQuery(sql);
+        String dat[] = new String[3];
+        while(rs.next()){
+            dat[0]=rs.getString(1);
+            jTextFieldTotalVentas.setText(dat[0]);
+        }
+        
+        ResultSet rs2=st.executeQuery(sql2);
+        String dat2[] = new String[3];
+        while(rs2.next()){
+            dat2[0]=rs2.getString(1);
+            jTextFieldCompras.setText(dat2[0]);                 
+        }
+        
+        int tv= Integer.parseInt( jTextFieldTotalVentas.getText() )  ;
+        int tc= Integer.parseInt( jTextFieldCompras.getText() )  ;
+        jTextFieldUtilidad.setText( String.valueOf(tv-tc) );
+        jTextFieldUtilidadPorcentaje.setText( String.valueOf((tv-tc)*100/(tv)) +"%");
+        }
+        catch(SQLException ex){
+          JOptionPane.showMessageDialog(null, "Error "+ex);
         }
     }
-    
-    void MostrarDatosVenta(String Valor){
-        try {
-            Connection cn = Conexion.conectar();
-
-            DefaultTableModel modelo = new DefaultTableModel();
-
-            modelo.addColumn("Nombre");
-            modelo.addColumn("Cantidad Vendida ");
-
-            jTable1.setModel(modelo);
-            String sql = "";
-
-            if (Valor.equals("")) {
-                //sql=" select med.Nombre, ped.Cantidad_Medi from pedido ped  inner join lote lot on ped.Lote_idLotes= lot.idLotes inner join medicamento med on lot.Medicamento_idMedicamento = med.idMedicamento inner join venta ven on ped.Venta_idVenta = ven.idVenta  where (ven.idVenta = "+valor+"  ) ";
-            } else {
-                sql = " select med.Nombre, ped.Cantidad_Medi from pedido ped  inner join lote lot on ped.Lote_idLotes= lot.idLotes inner join medicamento med on lot.Medicamento_idMedicamento = med.idMedicamento inner join venta ven on ped.Venta_idVenta = ven.idVenta  where (ven.idVenta = " + Valor + "  ) ";
-            }
-
-            String[] datos = new String[9];
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-
-                modelo.addRow(datos);
-
-                jTable1.setModel(modelo);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex);
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,28 +71,19 @@ public class Visualizar_Ventas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButtonMenu = new javax.swing.JButton();
+        jTextFieldUtilidadPorcentaje = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldUtilidad = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldCompras = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldTotalVentas = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 570, 340));
 
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonMenu.setBorderPainted(false);
@@ -143,6 +94,36 @@ public class Visualizar_Ventas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 400, 30, -1));
+        getContentPane().add(jTextFieldUtilidadPorcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 100, -1));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("% Utilidad :");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, -1));
+        getContentPane().add(jTextFieldUtilidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 100, -1));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Utlidad :");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 100, -1));
+
+        jTextFieldCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldComprasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 100, -1));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Total Compras :");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 100, -1));
+        getContentPane().add(jTextFieldTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 100, -1));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Total Ventas :");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 100, -1));
 
         Fondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/blanco.jpg"))); // NOI18N
@@ -156,6 +137,10 @@ public class Visualizar_Ventas extends javax.swing.JFrame {
         this.setVisible(false);
         otro.setVisible(true);
     }//GEN-LAST:event_jButtonMenuActionPerformed
+
+    private void jTextFieldComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldComprasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldComprasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,8 +171,13 @@ public class Visualizar_Ventas extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
-                new Visualizar_Ventas().setVisible(true);
+                try {
+                    new Visualizar_Ventas(user).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Visualizar_Ventas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -195,7 +185,13 @@ public class Visualizar_Ventas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fondo;
     private javax.swing.JButton jButtonMenu;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jTextFieldCompras;
+    private javax.swing.JTextField jTextFieldTotalVentas;
+    private javax.swing.JTextField jTextFieldUtilidad;
+    private javax.swing.JTextField jTextFieldUtilidadPorcentaje;
     // End of variables declaration//GEN-END:variables
 }

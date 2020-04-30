@@ -49,12 +49,7 @@ INSERT IGNORE INTO `cliente` (`idCliente`, `Nombre`, `Direccion`, `Telefono`, `N
 
 -- Dumping structure for function cafeteria2.crearUsuario
 DELIMITER //
-CREATE FUNCTION `crearUsuario`(
-	`id` INT,
-	`nombre` VARCHAR(200),
-	`contra` BLOB,
-	`Accesos_id` INT
-) RETURNS int(11)
+CREATE FUNCTION `crearUsuario`( nombre VARCHAR(200),  contra BLOB,  Accesos_id INT) RETURNS int(11)
 BEGIN
     DECLARE cuenta INT DEFAULT -1;
     SELECT COUNT(*) FROM usuario WHERE Nombre=nombre INTO cuenta;

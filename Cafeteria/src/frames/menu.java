@@ -307,7 +307,14 @@ private static Usuario user;//variable global del usuario logeado
     }//GEN-LAST:event_jButtonProveedoresActionPerformed
 
     private void jButtonCierreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCierreActionPerformed
-        // TODO add your handling code here:
+        Visualizar_Ventas Vv;
+          try {
+              Vv = new Visualizar_Ventas(user);
+              Vv.setVisible(true);
+          } catch (SQLException ex) {
+              Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+          }        
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonCierreActionPerformed
 
     /**
