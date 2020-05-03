@@ -347,10 +347,11 @@ public class Venta extends javax.swing.JFrame {
         setFocusTraversalPolicyProvider(true);
         setMinimumSize(new java.awt.Dimension(770, 370));
         setName(""); // NOI18N
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(null);
         getContentPane().add(jTextFieldTotal);
-        jTextFieldTotal.setBounds(640, 310, 60, 20);
+        jTextFieldTotal.setBounds(640, 310, 60, 22);
 
         jLabelTotal.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -380,7 +381,7 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonNuevaVenta);
-        jButtonNuevaVenta.setBounds(140, 20, 50, 40);
+        jButtonNuevaVenta.setBounds(10, 10, 38, 40);
 
         jButtonCancelarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/CancelarCarritoNegro.png"))); // NOI18N
         jButtonCancelarCompra.setBorderPainted(false);
@@ -391,7 +392,7 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonCancelarCompra);
-        jButtonCancelarCompra.setBounds(110, 280, 65, 41);
+        jButtonCancelarCompra.setBounds(130, 10, 38, 38);
 
         jButtonTerminarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/ComprarNegro.png"))); // NOI18N
         jButtonTerminarVenta.setBorderPainted(false);
@@ -402,7 +403,7 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonTerminarVenta);
-        jButtonTerminarVenta.setBounds(10, 280, 65, 41);
+        jButtonTerminarVenta.setBounds(70, 10, 40, 38);
 
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/error3.png"))); // NOI18N
         jButtonEliminar.setBorderPainted(false);
@@ -413,7 +414,7 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonEliminar);
-        jButtonEliminar.setBounds(110, 230, 50, 40);
+        jButtonEliminar.setBounds(130, 230, 40, 40);
 
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/AñadirNegro.png"))); // NOI18N
         jButtonAgregar.setBorderPainted(false);
@@ -424,9 +425,9 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonAgregar);
-        jButtonAgregar.setBounds(20, 230, 50, 40);
+        jButtonAgregar.setBounds(20, 230, 38, 40);
         getContentPane().add(jTextFieldCantMaxima);
-        jTextFieldCantMaxima.setBounds(90, 200, 100, 20);
+        jTextFieldCantMaxima.setBounds(90, 200, 100, 22);
 
         jLabelCantidadMaxima.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelCantidadMaxima.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -434,7 +435,7 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jLabelCantidadMaxima);
         jLabelCantidadMaxima.setBounds(90, 180, 98, 17);
         getContentPane().add(jTextFieldCantidad);
-        jTextFieldCantidad.setBounds(20, 200, 50, 20);
+        jTextFieldCantidad.setBounds(20, 200, 50, 22);
 
         jLabelCantidad.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelCantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -443,7 +444,7 @@ public class Venta extends javax.swing.JFrame {
         jLabelCantidad.setBounds(20, 180, 49, 17);
 
         getContentPane().add(jComboBoxProducto);
-        jComboBoxProducto.setBounds(20, 150, 170, 20);
+        jComboBoxProducto.setBounds(20, 150, 170, 22);
 
         jLabelProducto.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -452,7 +453,7 @@ public class Venta extends javax.swing.JFrame {
         jLabelProducto.setBounds(20, 130, 59, 17);
 
         getContentPane().add(jComboBoxCliente);
-        jComboBoxCliente.setBounds(20, 100, 170, 20);
+        jComboBoxCliente.setBounds(20, 100, 170, 22);
 
         jLabelCliente.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
