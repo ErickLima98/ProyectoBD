@@ -296,7 +296,7 @@ public class Venta extends javax.swing.JFrame {
         }
     }
 
-    private void insertarVenta() {        
+    private void insertarVenta() {
         try {
             Connection cn = Conexion.conectar();
             java.util.Date d = new java.util.Date();
@@ -304,7 +304,7 @@ public class Venta extends javax.swing.JFrame {
 
             PreparedStatement pst = cn.prepareStatement("INSERT INTO venta(Fecha, Total, Usuario_idUsuario, Cliente_idCliente) VALUES(?,?,?,?)");
             pst.setDate(1, date);
-            pst.setDouble(2, Double.parseDouble(jTextFieldTotal.getText()));                      
+            pst.setDouble(2, Double.parseDouble(jTextFieldTotal.getText()));
             pst.setInt(3, 1);
             pst.setInt(4, Integer.parseInt(jComboBoxCliente.getSelectedItem().toString().substring(0, 1)));
             int a = pst.executeUpdate();
@@ -426,14 +426,14 @@ public class Venta extends javax.swing.JFrame {
     private double SumarSubtotal() {
         int filas = jTable1.getRowCount() - 1;
         double Total = 0;
-                
-        while (filas >= 0) {            
+
+        while (filas >= 0) {
             double sub = Double.parseDouble(jTable1.getValueAt(filas, 2).toString());
             Total = Total + sub;
             filas--;
         }
         Total = Math.round(Total * 100) / 100d;
-        jTextFieldTotal.setText(String.valueOf(Total));        
+        jTextFieldTotal.setText(String.valueOf(Total));
         return Total;
     }
 
@@ -473,7 +473,7 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNuevaVentaActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        double precio = Double.parseDouble(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));               
+        double precio = Double.parseDouble(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));
         int cantMax = Integer.parseInt(ObtenerCantMax(jComboBoxProducto.getSelectedItem().toString()));
 
         if (Validar() == 0) {
@@ -495,20 +495,18 @@ public class Venta extends javax.swing.JFrame {
                     jTable1.setModel(modelo); // se envia el modelo 
                 }
                 SumarSubtotal();
-                jTextFieldCantidad.setText("");                
+                jTextFieldCantidad.setText("");
             }
         }// FIn IF VALIDAR
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonTerminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerminarVentaActionPerformed
-        //actualizarventa();
-
         int x = jTable1.getRowCount() - 1; // Se obtiene el numero de filas -1 porque empieza en 0
         if (x == -1) {
             JOptionPane.showMessageDialog(null, "La Venta Debe tener productos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             insertarVenta();
-            jButtonCancelarCompra.setEnabled(false);
+            jButtonTerminarVenta.setEnabled(false);
             jButtonAgregar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
             jComboBoxCliente.setEnabled(false);
@@ -518,7 +516,7 @@ public class Venta extends javax.swing.JFrame {
             jTextFieldCantMaxima.setText("");
             jTextFieldCantidad.setText("");
             jTextFieldPrecio.setText("");
-            jTextFieldTotal.setText("");                       
+            jTextFieldTotal.setText("");
             while (x >= 0) {
                 modelo.removeRow(x);
                 x--;
@@ -534,13 +532,13 @@ public class Venta extends javax.swing.JFrame {
             int x = jTable1.getRowCount() - 1; // Se obtiene el numero de filas -1 porque empieza en 0
             int x2 = x;
             int Ultim = obtenerUltimaVent(); // Se obtiene la venta que se genero
-
-            int k = JOptionPane.showConfirmDialog(null, "Cancelar Venta?", "Cancelar", JOptionPane.YES_NO_OPTION);
+            int k = JOptionPane.showConfirmDialog(null, "Cancelar la ultima venta?", "Cancelar", JOptionPane.YES_NO_OPTION);            
+            
             if (k == JOptionPane.YES_OPTION) {
                 if (x == -1) {
                     PreparedStatement pst = cn.prepareStatement("DELETE FROM venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
                     pst.executeUpdate(); // Manda la instruccion
-                    JOptionPane.showMessageDialog(null, "Venta Cancelada");
+                    JOptionPane.showMessageDialog(null, "Venta cancelada");
                 } else {
                     while (x2 >= 0) {
                         String idProducto = jTable1.getValueAt(x2, 0).toString();
@@ -549,23 +547,23 @@ public class Venta extends javax.swing.JFrame {
                         x2--;
                     }
                     PreparedStatement pst = cn.prepareStatement("DELETE FROM Venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
-                    pst.executeUpdate(); // Manda la instruccion
-                    jTextFieldTotal.setText(null);
+                    pst.executeUpdate(); // Manda la instruccion                    
                     JOptionPane.showMessageDialog(null, "Venta Cancelada");
                 }
-                jTable1.setEnabled(false);
+                jButtonTerminarVenta.setEnabled(false);
+                jButtonCancelarCompra.setEnabled(false);
+                jButtonAgregar.setEnabled(false);
+                jButtonEliminar.setEnabled(false);
+                jComboBoxCliente.setEnabled(false);
                 jComboBoxProducto.setEnabled(false);
-
+                jTextFieldCantidad.setText("");
+                jTextFieldCantMaxima.setText("");
+                jTextFieldPrecio.setText("");
                 jTextFieldCantidad.setEnabled(false);
-                jTextFieldCantidad.setText(null);
+                jTextFieldCantMaxima.setEnabled(false);
+                jTextFieldPrecio.setEnabled(false);
+                jTextFieldTotal.setEnabled(false);
 
-                jButtonAgregar.setVisible(false);
-                jButtonTerminarVenta.setVisible(false);
-
-                jButtonCancelarCompra.setVisible(false);
-                jButtonEliminar.setVisible(false);
-
-                jButtonNuevaVenta.setEnabled(false);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Eror" + ex, "Error", JOptionPane.ERROR_MESSAGE);
@@ -573,27 +571,12 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarCompraActionPerformed
 
     private void jMenuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEliminarActionPerformed
-        int fila = jTable1.getSelectedRow();
-        String idProducto = "";
-        int cantProducto = 0;
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione una casilla en la tabla", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            idProducto = jTable1.getValueAt(fila, 0).toString();
-            cantProducto = Integer.parseInt(jTable1.getValueAt(fila, 1).toString());
-            int k = JOptionPane.showConfirmDialog(null, "Eliminar producto?", "Eliminar", JOptionPane.YES_NO_OPTION);
-            if (k == JOptionPane.YES_OPTION) {
-                EliminarVenta(idProducto, cantProducto);
-                int x = jTable1.getRowCount() - 1;
-                modelo.removeRow(fila);
-                SumarSubtotal();
-            }
-        }
+
     }//GEN-LAST:event_jMenuEliminarActionPerformed
 
     private void jComboBoxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProductoActionPerformed
         int cantMax = Integer.parseInt(ObtenerCantMax(jComboBoxProducto.getSelectedItem().toString()));
-        jTextFieldCantMaxima.setText(String.valueOf(cantMax));        
+        jTextFieldCantMaxima.setText(String.valueOf(cantMax));
         float precio = Float.parseFloat(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));
         jTextFieldPrecio.setText(String.valueOf(precio));
     }//GEN-LAST:event_jComboBoxProductoActionPerformed
