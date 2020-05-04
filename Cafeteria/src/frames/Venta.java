@@ -528,12 +528,13 @@ public class Venta extends javax.swing.JFrame {
     private void jButtonCancelarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarCompraActionPerformed
         try {
             Connection cn = Conexion.conectar();
+            Object[] botones = {"SI", " NO"};
 
             int x = jTable1.getRowCount() - 1; // Se obtiene el numero de filas -1 porque empieza en 0
             int x2 = x;
-            int Ultim = obtenerUltimaVent(); // Se obtiene la venta que se genero
-            int k = JOptionPane.showConfirmDialog(null, "Cancelar la ultima venta?", "Cancelar", JOptionPane.YES_NO_OPTION);            
-            
+            int Ultim = obtenerUltimaVent(); // Se obtiene la venta que se genero          
+            //int k = JOptionPane.showConfirmDialog(null, "Cancelar la ultima venta?", "Cancelar", JOptionPane.YES_NO_OPTION, HEIGHT);
+            int k = JOptionPane.showOptionDialog(null, "Cancelar la ultima venta?", "CANCELAR", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
             if (k == JOptionPane.YES_OPTION) {
                 if (x == -1) {
                     PreparedStatement pst = cn.prepareStatement("DELETE FROM venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
