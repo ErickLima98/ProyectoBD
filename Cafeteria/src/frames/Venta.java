@@ -28,19 +28,12 @@ public class Venta extends javax.swing.JFrame {
      * Creates new form Venta
      */
     public Venta() {
-        this.user = user;//Se asigna el usuaario que hizo login        
-        setIconImage(new ImageIcon(getClass().getResource("/Imagen/cafe.png")).getImage());
         initComponents();
         this.setLocationRelativeTo(null);
+        this.user = user;//Se asigna el usuaario que hizo login        
+        setIconImage(new ImageIcon(getClass().getResource("/Imagen/cafe.png")).getImage());
         LlenarcmbCliente();
         LlenarcmProducto();
-//        jTextFieldCantidad.setEnabled(false);
-//        jButtonAgregar.setVisible(false);
-//        jButtonEliminar.setVisible(false);
-//        jButtonTerminarVenta.setVisible(false);
-//        jButtonCancelarCompra.setVisible(false);
-//        jComboBoxProducto.setEnabled(false);
-
         jButtonTerminarVenta.setEnabled(false);
         jButtonCancelarCompra.setEnabled(false);
         jButtonAgregar.setEnabled(false);
@@ -202,7 +195,8 @@ public class Venta extends javax.swing.JFrame {
     private String ObtenerCantMax(String valor) {
         try {
             Connection cn = Conexion.conectar();
-            String sql = "select inv.Existencias from inventario inv WHERE(id.Inventario='" + valor + "')";
+            
+            String sql = "SELECT Existencias FROM inventario WHERE(idInventario ='" + valor + "')";
             String CantMax = "";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -405,6 +399,11 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jLabelCantidad);
         jLabelCantidad.setBounds(20, 180, 49, 17);
 
+        jComboBoxProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxProductoActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBoxProducto);
         jComboBoxProducto.setBounds(20, 150, 170, 22);
 
@@ -516,9 +515,11 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonTerminarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerminarVentaActionPerformed
-        //actualizarventa();
+        actualizarventa();
         int x = jTable1.getRowCount() - 1; // Se obtiene el numero de filas -1 porque empieza en 0
-        jButtonTerminarVenta.setEnabled(false);
+        if (x == -1) {
+            JOptionPane.showMessageDialog(null, "La Venta Debe tener productos", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             jButtonCancelarCompra.setEnabled(false);
             jButtonAgregar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
@@ -526,19 +527,7 @@ public class Venta extends javax.swing.JFrame {
             jComboBoxProducto.setEnabled(false);
             jTextFieldCantidad.setEnabled(false);
             jTextFieldCantMaxima.setEnabled(false);
-        if (x == -1) {
-            JOptionPane.showMessageDialog(null, "La Venta Debe tener productos", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-//            jTextFieldCantidad.setEnabled(false);
-//            jTable1.setEnabled(false);
-//            jComboBoxProducto.setEnabled(false);
-//            jButtonAgregar.setVisible(false);
-//            jButtonAgregar.setEnabled(false);
-//            jButtonCancelarCompra.setVisible(false);
-//            jButtonEliminar.setVisible(false);
-//            jButtonTerminarVenta.setVisible(false);
-//            jTable1.setEnabled(false);
-            
+
             System.out.println("1 " + x);
             while (x >= 0) {
                 modelo.removeRow(x);
@@ -613,6 +602,11 @@ public class Venta extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jMenuEliminarActionPerformed
+
+    private void jComboBoxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProductoActionPerformed
+       int cantMax = Integer.parseInt(ObtenerCantMax(jComboBoxProducto.getSelectedItem().toString()));
+        jTextFieldCantMaxima.setText(String.valueOf(cantMax));
+    }//GEN-LAST:event_jComboBoxProductoActionPerformed
 
     /**
      * @param args the command line arguments
