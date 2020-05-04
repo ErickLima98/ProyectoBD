@@ -260,8 +260,7 @@ public class Inventario extends javax.swing.JFrame {
                     PreparedStatement pst = cn.prepareStatement("INSERT INTO inventario(Nombre,Existencias,Precio_venta)VALUES(?,?,?)");
                     pst.setString(1,jTextFieldNombre.getText());
                     pst.setString(2,jTextFieldCantidad.getText());
-                    pst.setDouble(3,Double.parseDouble(jTextFieldPrecio.getText()));
-                    //pst.setBoolean(4,true);
+                    pst.setDouble(3,Double.parseDouble(jTextFieldPrecio.getText()));                   
                     int a = pst.executeUpdate();
                     if(a>0)
                     {
