@@ -447,12 +447,14 @@ public class Venta extends javax.swing.JFrame {
         int fila = jTable1.getSelectedRow();
         String idCompra = "";
         int cantCompra = 0;
+        Object[] botones = {"SI", " NO"};
+        
         if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione una casilla", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Seleccione una casilla en la tabla", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             idCompra = jTable1.getValueAt(fila, 0).toString();
             cantCompra = Integer.parseInt(jTable1.getValueAt(fila, 1).toString());
-            int k = JOptionPane.showConfirmDialog(null, "Eliminar producto?", "Eliminar", JOptionPane.YES_NO_OPTION);
+            int k = JOptionPane.showOptionDialog(null, "Eliminar producto de la venta?", "ELIMINAR", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
             if (k == JOptionPane.YES_OPTION) {
                 EliminarVenta(idCompra, cantCompra);
                 int x = jTable1.getRowCount() - 1;
