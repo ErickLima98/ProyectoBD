@@ -48,6 +48,12 @@ public class Venta extends javax.swing.JFrame {
         jTextFieldCantMaxima.setEnabled(false);
         jTextFieldPrecio.setEnabled(false);
         jTextFieldTotal.setEnabled(false);
+
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Producto"); // se envian los titulos de la tabla
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Subtotal");
+        jTable1.setModel(modelo); // se  le envia el modelo
     }
 
     /**
@@ -100,13 +106,13 @@ public class Venta extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
         getContentPane().add(jTextFieldTotal);
-        jTextFieldTotal.setBounds(640, 310, 60, 22);
+        jTextFieldTotal.setBounds(550, 310, 150, 22);
 
         jLabelTotal.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTotal.setText("Total :");
         getContentPane().add(jLabelTotal);
-        jLabelTotal.setBounds(590, 310, 40, 20);
+        jLabelTotal.setBounds(510, 310, 40, 20);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -370,12 +376,12 @@ public class Venta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error " + ex);
             return 0;
         }
-    }    
+    }
 
     private String ObtenerPrecio(String valor) {
         try {
             Connection cn = Conexion.conectar();
-            
+
             String sql = "SELECT Precio_venta FROM inventario WHERE(idInventario ='" + valor + "')";
             String datos = "";
             Statement st = cn.createStatement();
@@ -408,7 +414,7 @@ public class Venta extends javax.swing.JFrame {
             return "";
         }
     }
-    
+
     private int Validar() {
         if (jTextFieldCantidad.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Ingrese una cantidad", "Error", JOptionPane.ERROR_MESSAGE);
@@ -417,20 +423,21 @@ public class Venta extends javax.swing.JFrame {
             return 0;
         }
     }
-    
+
     private double SumarSubtotal() {
         int filas = jTable1.getRowCount() - 1;
         double Total = 0;
-        double Tot = 0;
-        while (filas >= 0) {
+                
+        while (filas >= 0) {            
             double sub = Double.parseDouble(jTable1.getValueAt(filas, 2).toString());
             Total = Total + sub;
             filas--;
         }
-        jTextFieldTotal.setText(String.valueOf(Total));
+        Total = Math.round(Total * 100) / 100d;
+        jTextFieldTotal.setText(String.valueOf(Total));        
         return Total;
-    }           
-    
+    }
+
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
         menu otro = new menu();
         this.setVisible(false);
@@ -467,37 +474,30 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNuevaVentaActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        double precio = 0;
-
+        double precio = Double.parseDouble(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));       
+        
         int cantMax = Integer.parseInt(ObtenerCantMax(jComboBoxProducto.getSelectedItem().toString()));
-        jTextFieldCantMaxima.setText(String.valueOf(cantMax));
+
         if (Validar() == 0) {
             jComboBoxCliente.setEnabled(false);
             if (Integer.parseInt(jTextFieldCantidad.getText()) > cantMax) {
-                JOptionPane.showMessageDialog(null, "No hay existencias suficientes para esta venta ", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No hay existencias suficientes para realizar la venta", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 if (jTable1.getRowCount() - 1 == -1) {
-                    modelo = new DefaultTableModel();
-                    modelo.addColumn("Producto"); // se envian los titulos de la tabla
-                    modelo.addColumn("Cantidad");
-                    modelo.addColumn("Subtotal");
-                    jTable1.setModel(modelo); // se  le envia el modelo
-                    ObjectTabla[0] = jComboBoxCliente.getSelectedItem().toString(); // Se agrega el medicamento
+                    ObjectTabla[0] = jComboBoxProducto.getSelectedItem().toString(); // Se agrega el medicamento
                     ObjectTabla[1] = jTextFieldCantidad.getText(); // Se agrega la cantidad
-                    ObjectTabla[2] = (Double.parseDouble(jTextFieldCantidad.getText()) * precio);// Se agrega el subtotal
+                    ObjectTabla[2] = (Math.round((Double.parseDouble(jTextFieldCantidad.getText()) * precio) * 100) / 100d);// Se agrega el subtotal
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
                 } else {
                     ObjectTabla[0] = jComboBoxProducto.getSelectedItem().toString(); // Se agrega el medicamento
                     ObjectTabla[1] = jTextFieldCantidad.getText(); // Se agrega la cantidad
-                    ObjectTabla[2] = (Integer.parseInt(jTextFieldCantidad.getText()) * precio); // Se obtiene el precio de venta y se multiplica por la cantidad
+                    ObjectTabla[2] = (Math.round((Double.parseDouble(jTextFieldCantidad.getText()) * precio) * 100) / 100d); // Se obtiene el precio de venta y se multiplica por la cantidad
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
                 }
                 SumarSubtotal();
-                jTextFieldCantidad.setText("");
-                cantMax = Integer.parseInt(ObtenerCantMax(jComboBoxProducto.getSelectedItem().toString()));
-                jTextFieldCantidad.setText(String.valueOf(cantMax));
+                jTextFieldCantidad.setText("");                
             }
         }// FIn IF VALIDAR
     }//GEN-LAST:event_jButtonAgregarActionPerformed
@@ -596,8 +596,8 @@ public class Venta extends javax.swing.JFrame {
 
     private void jComboBoxProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProductoActionPerformed
         int cantMax = Integer.parseInt(ObtenerCantMax(jComboBoxProducto.getSelectedItem().toString()));
-        jTextFieldCantMaxima.setText(String.valueOf(cantMax));
-        int precio = Integer.parseInt(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));
+        jTextFieldCantMaxima.setText(String.valueOf(cantMax));        
+        float precio = Float.parseFloat(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));
         jTextFieldPrecio.setText(String.valueOf(precio));
     }//GEN-LAST:event_jComboBoxProductoActionPerformed
 
