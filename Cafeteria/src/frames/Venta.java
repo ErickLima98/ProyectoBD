@@ -296,7 +296,7 @@ public class Venta extends javax.swing.JFrame {
         }
     }
 
-    private void insertarVenta() {
+    private void insertarVenta() {        
         try {
             Connection cn = Conexion.conectar();
             java.util.Date d = new java.util.Date();
@@ -304,8 +304,7 @@ public class Venta extends javax.swing.JFrame {
 
             PreparedStatement pst = cn.prepareStatement("INSERT INTO venta(Fecha, Total, Usuario_idUsuario, Cliente_idCliente) VALUES(?,?,?,?)");
             pst.setDate(1, date);
-            pst.setInt(2, 1);
-            //pst.setInt(2, (ObtenerTotal()));
+            pst.setDouble(2, Double.parseDouble(jTextFieldTotal.getText()));                      
             pst.setInt(3, 1);
             pst.setInt(4, Integer.parseInt(jComboBoxCliente.getSelectedItem().toString().substring(0, 1)));
             int a = pst.executeUpdate();
@@ -474,8 +473,7 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNuevaVentaActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        double precio = Double.parseDouble(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));       
-        
+        double precio = Double.parseDouble(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));               
         int cantMax = Integer.parseInt(ObtenerCantMax(jComboBoxProducto.getSelectedItem().toString()));
 
         if (Validar() == 0) {
@@ -509,6 +507,7 @@ public class Venta extends javax.swing.JFrame {
         if (x == -1) {
             JOptionPane.showMessageDialog(null, "La Venta Debe tener productos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            insertarVenta();
             jButtonCancelarCompra.setEnabled(false);
             jButtonAgregar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
@@ -519,9 +518,7 @@ public class Venta extends javax.swing.JFrame {
             jTextFieldCantMaxima.setText("");
             jTextFieldCantidad.setText("");
             jTextFieldPrecio.setText("");
-            jTextFieldTotal.setText("");
-            insertarVenta();
-            System.out.println("1 " + x);
+            jTextFieldTotal.setText("");                       
             while (x >= 0) {
                 modelo.removeRow(x);
                 x--;
