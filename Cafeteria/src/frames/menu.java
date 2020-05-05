@@ -303,7 +303,9 @@ private static Usuario user;//variable global del usuario logeado
     }//GEN-LAST:event_jButtonComprasActionPerformed
 
     private void jButtonProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProveedoresActionPerformed
-        // TODO add your handling code here:
+        Proveedores proveedor = new Proveedores(user);
+        proveedor.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonProveedoresActionPerformed
 
     private void jButtonCierreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCierreActionPerformed
