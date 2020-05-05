@@ -98,6 +98,7 @@ private Usuario user;
                 jComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(jPasswordFieldRepetirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 180, -1));
         getContentPane().add(jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 180, -1));
 
         jLabelImagenUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -107,6 +108,9 @@ private Usuario user;
         jButtonMenu.setBackground(new java.awt.Color(255, 153, 102));
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonMenu.setBorderPainted(false);
+        jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
+        jButtonMenu.setBorderPainted(false);
+        jButtonMenu.setContentAreaFilled(false);
         jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMenuActionPerformed(evt);
@@ -115,6 +119,7 @@ private Usuario user;
         getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 40, 40));
 
         jToggleButton1.setBackground(new java.awt.Color(255, 153, 102));
+        jToggleButton1.setBackground(new java.awt.Color(204, 204, 204));
         jToggleButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jToggleButton1.setText("Crear");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +144,7 @@ private Usuario user;
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         if(jPasswordFieldConstraseña.getText()!= jPasswordFieldRepetirContra.getText())
+        if(jPasswordFieldConstraseña.getText()!=jPasswordFieldRepetirContra.getText())
         {
             if(!jTextFieldNombreUsuario.getText().trim().equals(""))
             {

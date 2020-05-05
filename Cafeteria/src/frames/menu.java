@@ -75,6 +75,17 @@ private static Usuario user;//variable global del usuario logeado
             jButtonAnadirUsuario.setVisible(true);
             jButtonAnadirUsuario.setEnabled(false);
             jButtonCerrarSesion.setVisible(true);       
+            jButtonAnadirUsuario.setVisible(true);
+            jButtonCliente.setVisible(true);
+            jButtonInventario.setVisible(true);
+            jButtonUsuarios.setVisible(true);
+            jButtonVenta.setVisible(true);
+        }else if(user.getNivelAcceso()==2){
+            jButtonAnadirUsuario.setVisible(true);
+            jButtonCliente.setVisible(true);
+            jButtonInventario.setVisible(true);
+            jButtonUsuarios.setVisible(true);
+            jButtonVenta.setVisible(true);       
         }
     }
     /**
@@ -92,6 +103,7 @@ private static Usuario user;//variable global del usuario logeado
         jButtonInventario = new javax.swing.JButton();
         jButtonCliente = new javax.swing.JButton();
         jButtonCerrarSesion = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -189,6 +201,17 @@ private static Usuario user;//variable global del usuario logeado
             }
         });
         getContentPane().add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, 140, 110));
+        btnCerrar.setBackground(new java.awt.Color(255, 153, 102));
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/salir.png"))); // NOI18N
+        btnCerrar.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>CERRAR SESION</h4>\n\t</div>\n</body>\n</html>");
+        btnCerrar.setBorder(new javax.swing.border.MatteBorder(null));
+        btnCerrar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/salir2.png"))); // NOI18N
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, 140, 110));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -313,6 +336,12 @@ private static Usuario user;//variable global del usuario logeado
         otro.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        // TODO add your handling code here:
+        Inicio otro = new Inicio();
+        otro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void jButtonComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprasActionPerformed
         // TODO add your handling code here:
@@ -374,6 +403,8 @@ private static Usuario user;//variable global del usuario logeado
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnadirUsuario;
     private javax.swing.JButton jButtonCerrarSesion;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton jButtonAnadirUsuario;
     private javax.swing.JButton jButtonCierre;
     private javax.swing.JButton jButtonCliente;
     private javax.swing.JButton jButtonCompras;

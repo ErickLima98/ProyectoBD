@@ -90,6 +90,13 @@ BEGIN
     IF cuenta=0 THEN
 		INSERT INTO usuario (Nombre,contraseña,Accesos_id) VALUES (vUsername,MD5(vClave),vAcceso);
         RETURN 1;
+CREATE DEFINER=`root`@`localhost` FUNCTION `crearUsuario`(nombre VARCHAR(200),  contra BLOB,  Accesos_id INT) RETURNS int(11)
+BEGIN
+    DECLARE cuenta INT DEFAULT -1;
+    SELECT COUNT(*) FROM usuario WHERE Nombre=nombre INTO cuenta;
+    IF cuenta=0 THEN
+		INSERT INTO usuario (Nombre, Contrasenia, Acceso_idAcceso) VALUES (nombre,MD5(contra),Accesos_id);
+      	RETURN 1;
 	ELSE
 		RETURN 0;
 	END IF;
@@ -103,6 +110,10 @@ CREATE FUNCTION `insertarAlimento`(NombreAli VARCHAR(200), Existen INT, Preciov 
 BEGIN
 	DECLARE Exis VARCHAR(200) DEFAULT ' ';
 	IF EXISTS (select * from inventario inv where (inv.Nombre = NombreAli and inv.Existencias = Existen and inv.Precio_venta = Preciov)) 
+CREATE DEFINER=`root`@`localhost` FUNCTION `insertarAlimento`() RETURNS varchar(40) CHARSET utf8
+BEGIN
+	DECLARE Exis Varchar(40) DEFAULT ' ';
+	IF EXISTS (select * from inventario inv where (inv.Nombre = NombreAli and inv.Existencias = Exis and inv.Precio_venta = precio)) 
 	THEN
 	set Exis = 'Si';
 	else
@@ -143,6 +154,17 @@ BEGIN
 		SELECT contraseña FROM usuario WHERE Nombre=vUsername INTO cifrado;
         RETURN cifrado=MD5(vClave);
 	END IF;
+CREATE DEFINER=`root`@`localhost` FUNCTION `login`(vUsername VARCHAR(45), vClave BLOB) RETURNS int(11)
+BEGIN
+    DECLARE cifrado BLOB;
+    DECLARE cuenta INT DEFAULT -1;
+    SELECT COUNT(*) FROM usuario WHERE Nombre=vUsername INTO cuenta;
+    IF cuenta=0 THEN
+   	RETURN 1;
+	ELSE
+		SELECT contrasenia FROM usuario WHERE Nombre=vUsername INTO cifrado;
+			RETURN cifrado = MD5(vClave);
+	END IF; 
 END//
 DELIMITER ;
 
@@ -196,6 +218,7 @@ REPLACE INTO `proveedores` (`idProveedores`, `Nombre`, `Direccion`, `empresa`, `
 -- Volcando estructura para función cafeteria2.restaurarClave
 DELIMITER //
 CREATE FUNCTION `restaurarClave`(vUsarname VARCHAR(45), vIdadmin VARCHAR(200), vClave BLOB) RETURNS int(11)
+CREATE DEFINER=`root`@`localhost` FUNCTION `restaurarClave`(vUsarname VARCHAR(45), vIdadmin VARCHAR(200), vClave BLOB) RETURNS int(11)
 BEGIN 
     DECLARE admin INT DEFAULT -1;
     DECLARE cuenta INT DEFAULT -1;

@@ -34,6 +34,11 @@ public class Usuarios extends javax.swing.JFrame {
             modeloTabla.addRow(new String[]{next.getUserId()+"", next.getUsername(), next.getNivelAcceso()==1?"Administrador":"usuario"});
         } 
         BuscarInventario.setVisible(false);
+
+        this.setLocationRelativeTo(null);
+        setIconImage(new ImageIcon(getClass().getResource("/Imagen/cafe.png")).getImage());
+        usuarios = manejador.getUsurios();
+        modeloTabla =  (DefaultTableModel) jTable1.getModel();
         accesos = manejador.getAcceso();
         for (Acceso acceso : accesos) {
             jComboBox1.addItem(acceso.toString());
@@ -79,6 +84,9 @@ public class Usuarios extends javax.swing.JFrame {
         jButtonBuscar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/search_1.png"))); // NOI18N
         jButtonBuscar.setBorderPainted(false);
+        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/search_1.png"))); // NOI18N
+        jButtonBuscar.setBorderPainted(false);
+        jButtonBuscar.setContentAreaFilled(false);
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
@@ -87,17 +95,22 @@ public class Usuarios extends javax.swing.JFrame {
         getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 40, 30));
 
         jPasswordFieldContrase.setBackground(new java.awt.Color(255, 153, 102));
+        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 40, 30));
+
         jPasswordFieldContrase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordFieldContraseActionPerformed(evt);
             }
         });
         getContentPane().add(jPasswordFieldContrase, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 130, -1));
+        getContentPane().add(jPasswordFieldContrase, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 130, -1));
 
         jLabelContrase.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelContrase.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelContrase.setText("Constraseña :");
         getContentPane().add(jLabelContrase, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 100, -1));
+        getContentPane().add(jLabelContrase, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 100, -1));
+
 
         jLabelAcceso.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelAcceso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,6 +118,8 @@ public class Usuarios extends javax.swing.JFrame {
         getContentPane().add(jLabelAcceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 80, -1));
 
         jComboBox1.setBackground(new java.awt.Color(255, 153, 102));
+        getContentPane().add(jLabelAcceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 80, -1));
+
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -114,6 +129,8 @@ public class Usuarios extends javax.swing.JFrame {
 
         jTextFieldNombre.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 130, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 130, -1));
+        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 130, -1));
 
         jLabelNombre.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -121,12 +138,15 @@ public class Usuarios extends javax.swing.JFrame {
         getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 80, -1));
 
         jTextField_ID.setBackground(new java.awt.Color(255, 153, 102));
+        getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 80, -1));
+
         jTextField_ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_IDActionPerformed(evt);
             }
         });
         getContentPane().add(jTextField_ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 130, -1));
+        getContentPane().add(jTextField_ID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 130, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -136,6 +156,11 @@ public class Usuarios extends javax.swing.JFrame {
         jButtonGuardar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Save.png"))); // NOI18N
         jButtonGuardar.setBorderPainted(false);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 50, -1));
+
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Save.png"))); // NOI18N
+        jButtonGuardar.setBorderPainted(false);
+        jButtonGuardar.setContentAreaFilled(false);
         jButtonGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +168,7 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 40, 40));
+        getContentPane().add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 30, 30));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -164,12 +190,18 @@ public class Usuarios extends javax.swing.JFrame {
         jButtonMenu.setBackground(new java.awt.Color(255, 153, 102));
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonMenu.setBorderPainted(false);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 190, -1));
+
+        jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
+        jButtonMenu.setBorderPainted(false);
+        jButtonMenu.setContentAreaFilled(false);
         jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMenuActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 340, 40, 40));
+        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 330, 40, 40));
 
         jCheckBox1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jCheckBox1.setSelected(true);
@@ -189,11 +221,15 @@ public class Usuarios extends javax.swing.JFrame {
 
         jPasswordField2.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 130, -1));
+        getContentPane().add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 260, 20));
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 130, -1));
+        getContentPane().add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 130, -1));
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Contraseña :");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 100, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 100, -1));
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -207,6 +243,7 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BuscarInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 260, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 140, -1));
 
         jLabelFondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/blanco.jpg"))); // NOI18N
@@ -237,6 +274,7 @@ public class Usuarios extends javax.swing.JFrame {
             jTextField_ID.setText(user.getUserId()+"");
             jTextFieldNombre.setText(user.getUsername());
         }
+
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
