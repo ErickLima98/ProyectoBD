@@ -73,25 +73,41 @@ private Usuario user;
         jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelNombre.setText("Nombre de Usuario:");
         getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 120, -1));
+
+        jTextFieldNombreUsuario.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 180, -1));
 
         jLabelContraseña.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelContraseña.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelContraseña.setText("Contraseña:");
         getContentPane().add(jLabelContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+
+        jPasswordFieldConstraseña.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jPasswordFieldConstraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 180, -1));
 
         jLabelRepetirContra.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelRepetirContra.setText("Repetir Contraseña:");
         getContentPane().add(jLabelRepetirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+
+        jPasswordFieldRepetirContra.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jPasswordFieldRepetirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 180, -1));
 
+        jComboBox.setBackground(new java.awt.Color(255, 153, 102));
+        jComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jPasswordFieldRepetirContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 180, -1));
         getContentPane().add(jComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 180, -1));
 
         jLabelImagenUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelImagenUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Agregar-Usuario-Grande.png"))); // NOI18N
         getContentPane().add(jLabelImagenUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 130, 120));
 
+        jButtonMenu.setBackground(new java.awt.Color(255, 153, 102));
+        jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
+        jButtonMenu.setBorderPainted(false);
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonMenu.setBorderPainted(false);
         jButtonMenu.setContentAreaFilled(false);
@@ -102,6 +118,7 @@ private Usuario user;
         });
         getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 40, 40));
 
+        jToggleButton1.setBackground(new java.awt.Color(255, 153, 102));
         jToggleButton1.setBackground(new java.awt.Color(204, 204, 204));
         jToggleButton1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jToggleButton1.setText("Crear");
@@ -126,12 +143,14 @@ private Usuario user;
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        if(jPasswordFieldConstraseña.getText()!= jPasswordFieldRepetirContra.getText())
         if(jPasswordFieldConstraseña.getText()!=jPasswordFieldRepetirContra.getText())
         {
             if(!jTextFieldNombreUsuario.getText().trim().equals(""))
             {
                 int combo = jComboBox.getSelectedIndex();
                 boolean user = manejador.CrearUsuario(jTextFieldNombreUsuario.getText().trim(), jPasswordFieldConstraseña.getText(), accesos.get(combo).getId());
+                System.out.println(user);
                 JOptionPane.showMessageDialog(this, "El usuario " + jTextFieldNombreUsuario.getText().trim() + " fue creado","INFORMACION",JOptionPane.INFORMATION_MESSAGE);
                 limpiar();
             }else{
@@ -141,6 +160,10 @@ private Usuario user;
             JOptionPane.showMessageDialog(this, "Las contraseñas no son iguales","ERROR",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

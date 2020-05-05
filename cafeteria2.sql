@@ -83,6 +83,13 @@ CREATE TABLE IF NOT EXISTS `compra` (
 
 -- Volcando estructura para función cafeteria2.crearUsuario
 DELIMITER //
+CREATE FUNCTION `crearUsuario`(vUsername VARCHAR(30), vClave TINYTEXT, vAcceso INT) RETURNS int(11)
+BEGIN
+    DECLARE cuenta INT DEFAULT -1;
+    SELECT COUNT(*) FROM usuario WHERE Nombre=vUsername INTO cuenta;
+    IF cuenta=0 THEN
+		INSERT INTO usuario (Nombre,contraseña,Accesos_id) VALUES (vUsername,MD5(vClave),vAcceso);
+        RETURN 1;
 CREATE DEFINER=`root`@`localhost` FUNCTION `crearUsuario`(nombre VARCHAR(200),  contra BLOB,  Accesos_id INT) RETURNS int(11)
 BEGIN
     DECLARE cuenta INT DEFAULT -1;
@@ -99,6 +106,10 @@ DELIMITER ;
 
 -- Volcando estructura para función cafeteria2.insertarAlimento
 DELIMITER //
+CREATE FUNCTION `insertarAlimento`(NombreAli VARCHAR(200), Existen INT, Preciov FLOAT) RETURNS varchar(40) CHARSET utf8
+BEGIN
+	DECLARE Exis VARCHAR(200) DEFAULT ' ';
+	IF EXISTS (select * from inventario inv where (inv.Nombre = NombreAli and inv.Existencias = Existen and inv.Precio_venta = Preciov)) 
 CREATE DEFINER=`root`@`localhost` FUNCTION `insertarAlimento`() RETURNS varchar(40) CHARSET utf8
 BEGIN
 	DECLARE Exis Varchar(40) DEFAULT ' ';
@@ -132,6 +143,17 @@ REPLACE INTO `inventario` (`idInventario`, `Nombre`, `Existencias`, `Precio_vent
 
 -- Volcando estructura para función cafeteria2.login
 DELIMITER //
+CREATE FUNCTION `login`(vUsername VARCHAR(30), vClave TINYTEXT) RETURNS int(11)
+BEGIN
+	DECLARE cifrado BLOB;
+    DECLARE cuenta INT DEFAULT -1;
+    SELECT COUNT(*) FROM usuario WHERE Nombre=vUsername INTO cuenta;
+    IF cuenta=0 THEN
+		RETURN -1;
+	ELSE
+		SELECT contraseña FROM usuario WHERE Nombre=vUsername INTO cifrado;
+        RETURN cifrado=MD5(vClave);
+	END IF;
 CREATE DEFINER=`root`@`localhost` FUNCTION `login`(vUsername VARCHAR(45), vClave BLOB) RETURNS int(11)
 BEGIN
     DECLARE cifrado BLOB;
@@ -195,6 +217,7 @@ REPLACE INTO `proveedores` (`idProveedores`, `Nombre`, `Direccion`, `empresa`, `
 
 -- Volcando estructura para función cafeteria2.restaurarClave
 DELIMITER //
+CREATE FUNCTION `restaurarClave`(vUsarname VARCHAR(45), vIdadmin VARCHAR(200), vClave BLOB) RETURNS int(11)
 CREATE DEFINER=`root`@`localhost` FUNCTION `restaurarClave`(vUsarname VARCHAR(45), vIdadmin VARCHAR(200), vClave BLOB) RETURNS int(11)
 BEGIN 
     DECLARE admin INT DEFAULT -1;

@@ -47,6 +47,34 @@ private static Usuario user;//variable global del usuario logeado
      public void seguridad(){
         System.out.println("nivel de acceso: "+user.getNivelAcceso());
         if(user.getNivelAcceso()==1){
+            jButtonInventario.setVisible(true);
+            jButtonCierre.setVisible(true);
+            jButtonVenta.setVisible(true);
+            jButtonCliente.setVisible(true);
+            jButtonProveedores.setVisible(true);
+            jButtonCompras.setVisible(true);
+            jButtonUsuarios.setVisible(true);
+            jButtonAnadirUsuario.setVisible(true);
+            jButtonCerrarSesion.setVisible(true);
+            
+        }else if(user.getNivelAcceso()==2){
+            jButtonInventario.setVisible(true);
+            jButtonInventario.setEnabled(true);
+            jButtonCierre.setVisible(true);
+            jButtonCierre.setEnabled(false);
+            jButtonVenta.setVisible(true);
+            jButtonVenta.setEnabled(true);
+            jButtonCliente.setVisible(true);
+            jButtonCliente.setEnabled(true);
+            jButtonProveedores.setVisible(true);
+            jButtonProveedores.setEnabled(false);
+            jButtonCompras.setVisible(true);
+            jButtonCompras.setEnabled(false);
+            jButtonUsuarios.setVisible(true);
+            jButtonUsuarios.setEnabled(false);
+            jButtonAnadirUsuario.setVisible(true);
+            jButtonAnadirUsuario.setEnabled(false);
+            jButtonCerrarSesion.setVisible(true);       
             jButtonAnadirUsuario.setVisible(true);
             jButtonCliente.setVisible(true);
             jButtonInventario.setVisible(true);
@@ -74,6 +102,7 @@ private static Usuario user;//variable global del usuario logeado
         jButtonVenta = new javax.swing.JButton();
         jButtonInventario = new javax.swing.JButton();
         jButtonCliente = new javax.swing.JButton();
+        jButtonCerrarSesion = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -161,6 +190,17 @@ private static Usuario user;//variable global del usuario logeado
         });
         getContentPane().add(jButtonCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 140, 110));
 
+        jButtonCerrarSesion.setBackground(new java.awt.Color(255, 153, 102));
+        jButtonCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/salir.png"))); // NOI18N
+        jButtonCerrarSesion.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>CERRAR SESION</h4>\n\t</div>\n</body>\n</html>");
+        jButtonCerrarSesion.setBorder(new javax.swing.border.MatteBorder(null));
+        jButtonCerrarSesion.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/salir2.png"))); // NOI18N
+        jButtonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarSesionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 440, 140, 110));
         btnCerrar.setBackground(new java.awt.Color(255, 153, 102));
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/salir.png"))); // NOI18N
         btnCerrar.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>CERRAR SESION</h4>\n\t</div>\n</body>\n</html>");
@@ -291,6 +331,11 @@ private static Usuario user;//variable global del usuario logeado
         venta.setVisible(true);
     }//GEN-LAST:event_jButtonVentaActionPerformed
 
+    private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
+        Inicio otro = new Inicio();
+        otro.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
         Inicio otro = new Inicio();
@@ -356,6 +401,8 @@ private static Usuario user;//variable global del usuario logeado
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonAnadirUsuario;
+    private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton jButtonAnadirUsuario;
     private javax.swing.JButton jButtonCierre;
