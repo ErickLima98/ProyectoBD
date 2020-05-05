@@ -318,44 +318,46 @@ public class Venta extends javax.swing.JFrame {
         }
     }
 
-    private void actualizarventa() {
+    private void actualizarInventario(int estado) {
         try {
             Connection cn = Conexion.conectar();
-            int idCliente = 0;
-            idCliente = Integer.parseInt(jComboBoxCliente.getSelectedItem().toString().substring(0, 1));
-            double tot = SumarSubtotal();
-            int idVent = obtenerUltimaVent();//---------------------------------------------------------------------------------ACAAAA---CORREGIR EL USUARIO
-            PreparedStatement pst = cn.prepareStatement("UPDATE Venta SET Usuario_idUsuario='" + user.getUserId() + "',Cliente_idCliente='" + idCliente + "',Total='" + tot + "',WHERE idVenta='" + idVent + "' ");
-            pst.executeUpdate();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error " + ex);
-        }
-    }
+            if (estado == 0) { //si el estado es 0 es porque se genera una nueva venta y se debe de descontar de existencias de inv
+                int idP = Integer.parseInt(jComboBoxProducto.getSelectedItem().toString().substring(0, 1));
+                int cantP = Integer.parseInt(jTextFieldCantidad.getText());
 
-    private void EliminarVenta(String idMedi, int Cant) {
-        try {
-            int idventa = obtenerUltimaVent();
-            idMedi = idMedi.substring(0, 1);
-            Connection cn = Conexion.conectar();
-            String sql = "";
-            //sql = " select lot.idLotes,  ped.Cantidad_Medi, med.idMedicamento, ped.idPedido from pedido ped inner join lote lot on ped.Lote_idLotes =  lot.idLotes inner join medicamento med on lot.Medicamento_idMedicamento = med.idMedicamento where (ped.Cantidad_Medi ="+Cant+" and med.idMedicamento ="+idMedi+" and ped.Venta_idVenta ="+idventa+") ";
-            String[] datos = new String[6];
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
-                datos[3] = rs.getString(4);
+                PreparedStatement pst = cn.prepareStatement("UPDATE inventario SET "
+                        + "existencias = existencias -'" + cantP + "' "
+                        + "WHERE "
+                        + "idInventario ='" + idP + "'");
+
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    System.out.println("Acutlizado");
+                } else {
+                    System.out.println("Error al acutlizar");
+                }
+            } else if (estado == 1) {//si el esado es 1 se debe de agregar lo que se habia descontado en la venta parcial    
+                int fila = jTable1.getSelectedRow();
+                int idP = Integer.parseInt(jTable1.getValueAt(fila, 0).toString().substring(0, 1));
+                int cantP = Integer.parseInt(jTable1.getValueAt(fila, 1).toString());
+
+                PreparedStatement pst = cn.prepareStatement("UPDATE inventario SET "
+                        + "existencias = existencias +'" + cantP + "' "
+                        + "WHERE "
+                        + "idInventario ='" + idP + "'");
+
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    System.out.println("Acutlizado");
+                } else {
+                    System.out.println("Error al acutlizar");
+                }
+            } else { //si el estado es 2 se debe de agregar lo que se desconto en la venta final
+
             }
-            /*PreparedStatement pst=cn.prepareStatement("UPDATE  Lote  set lote.Existencia = (Lote.Existencia + '"+datos[1]+"' ) where (lote.idLotes = '"+datos[0]+"' ) ");
-            pst.executeUpdate();     
-            PreparedStatement pst2=cn.prepareStatement("UPDATE  Pedido  set Pedido.Cantidad_Medi = '0'  where (pedido.idPedido = '"+datos[3]+"' ) ");
-            pst2.executeUpdate();*/
-        } // Fin try
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error" + ex);
-        } // Fin Catch   
+        }
     }
 
     private int obtenerUltimaVent() {
@@ -445,18 +447,14 @@ public class Venta extends javax.swing.JFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int fila = jTable1.getSelectedRow();
-        String idCompra = "";
-        int cantCompra = 0;
         Object[] botones = {"SI", " NO"};
-        
+
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione una casilla en la tabla", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            idCompra = jTable1.getValueAt(fila, 0).toString();
-            cantCompra = Integer.parseInt(jTable1.getValueAt(fila, 1).toString());
             int k = JOptionPane.showOptionDialog(null, "Eliminar producto de la venta?", "ELIMINAR", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
             if (k == JOptionPane.YES_OPTION) {
-                EliminarVenta(idCompra, cantCompra);
+                actualizarInventario(1);
                 int x = jTable1.getRowCount() - 1;
                 modelo.removeRow(fila);
                 SumarSubtotal();
@@ -489,12 +487,14 @@ public class Venta extends javax.swing.JFrame {
                     ObjectTabla[2] = (Math.round((Double.parseDouble(jTextFieldCantidad.getText()) * precio) * 100) / 100d);// Se agrega el subtotal
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
+                    actualizarInventario(0);
                 } else {
                     ObjectTabla[0] = jComboBoxProducto.getSelectedItem().toString(); // Se agrega el medicamento
                     ObjectTabla[1] = jTextFieldCantidad.getText(); // Se agrega la cantidad
                     ObjectTabla[2] = (Math.round((Double.parseDouble(jTextFieldCantidad.getText()) * precio) * 100) / 100d); // Se obtiene el precio de venta y se multiplica por la cantidad
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
+                    actualizarInventario(0);
                 }
                 SumarSubtotal();
                 jTextFieldCantidad.setText("");
@@ -531,24 +531,16 @@ public class Venta extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             Object[] botones = {"SI", " NO"};
-
-            int x = jTable1.getRowCount() - 1; // Se obtiene el numero de filas -1 porque empieza en 0
-            int x2 = x;
-            int Ultim = obtenerUltimaVent(); // Se obtiene la venta que se genero          
-            //int k = JOptionPane.showConfirmDialog(null, "Cancelar la ultima venta?", "Cancelar", JOptionPane.YES_NO_OPTION, HEIGHT);
+            int x = jTable1.getRowCount() - 1; // Se obtiene el numero de filas -1 porque empieza en 0            
+            int Ultim = obtenerUltimaVent(); // Se obtiene la venta que se genero                      
             int k = JOptionPane.showOptionDialog(null, "Cancelar la ultima venta?", "CANCELAR", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
+
             if (k == JOptionPane.YES_OPTION) {
                 if (x == -1) {
                     PreparedStatement pst = cn.prepareStatement("DELETE FROM venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
                     pst.executeUpdate(); // Manda la instruccion
                     JOptionPane.showMessageDialog(null, "Venta cancelada");
                 } else {
-                    while (x2 >= 0) {
-                        String idProducto = jTable1.getValueAt(x2, 0).toString();
-                        int cantProducto = Integer.parseInt(jTable1.getValueAt(x2, 1).toString());
-                        EliminarVenta(idProducto, cantProducto);
-                        x2--;
-                    }
                     PreparedStatement pst = cn.prepareStatement("DELETE FROM Venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
                     pst.executeUpdate(); // Manda la instruccion                    
                     JOptionPane.showMessageDialog(null, "Venta Cancelada");
