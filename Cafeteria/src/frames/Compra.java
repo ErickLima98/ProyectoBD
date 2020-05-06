@@ -5,15 +5,23 @@
  */
 package frames;
 
+import Seguridad.Conexion;
 import Seguridad.Usuario;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author allec
  */
 public class Compra extends javax.swing.JFrame {
-private static Usuario user;//variable global del usuario logeado
+
+    private static Usuario user;//variable global del usuario logeado
+
     /**
      * Creates new form Compra
      */
@@ -21,7 +29,9 @@ private static Usuario user;//variable global del usuario logeado
         initComponents();
         this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/Imagen/cafe.png")).getImage());
-        this.user = user;//Se asigna el usuaario que hizo login        
+        this.user = user;//Se asigna el usuaario que hizo login 
+
+        LlenarcmProducto();
     }
 
     /**
@@ -50,6 +60,7 @@ private static Usuario user;//variable global del usuario logeado
         jButtonTerminarAgregar = new javax.swing.JButton();
         jButtonTerminarAgregar1 = new javax.swing.JButton();
         jButtonTerminarC = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,11 +89,11 @@ private static Usuario user;//variable global del usuario logeado
         jLabelCantidad.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelCantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCantidad.setText("Cantidad:");
-        getContentPane().add(jLabelCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+        getContentPane().add(jLabelCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setText("Costo:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
         jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonSalir.setBorderPainted(false);
@@ -112,13 +123,18 @@ private static Usuario user;//variable global del usuario logeado
         jLabelTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTotal.setText("Total :");
         getContentPane().add(jLabelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 320, -1, 20));
-        getContentPane().add(jTextFieldCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 110, -1));
+        getContentPane().add(jTextFieldCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 110, -1));
 
         jButtonNuevaC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/NuevaCompraNegro.png"))); // NOI18N
         jButtonNuevaC.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButtonNuevaC.setBorderPainted(false);
         jButtonNuevaC.setContentAreaFilled(false);
         jButtonNuevaC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonNuevaC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevaCActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonNuevaC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
         jTextFieldCosto.addActionListener(new java.awt.event.ActionListener() {
@@ -126,13 +142,18 @@ private static Usuario user;//variable global del usuario logeado
                 jTextFieldCostoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, -1));
+        getContentPane().add(jTextFieldCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 110, -1));
 
         jButtonTerminarAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/A+¦adirNegro.png"))); // NOI18N
         jButtonTerminarAgregar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButtonTerminarAgregar.setBorderPainted(false);
         jButtonTerminarAgregar.setContentAreaFilled(false);
         jButtonTerminarAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonTerminarAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTerminarAgregarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonTerminarAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 40, 40));
 
         jButtonTerminarAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/error3.png"))); // NOI18N
@@ -140,6 +161,11 @@ private static Usuario user;//variable global del usuario logeado
         jButtonTerminarAgregar1.setBorderPainted(false);
         jButtonTerminarAgregar1.setContentAreaFilled(false);
         jButtonTerminarAgregar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonTerminarAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTerminarAgregar1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonTerminarAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 40, 40));
 
         jButtonTerminarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/ComprarNegro.png"))); // NOI18N
@@ -147,7 +173,21 @@ private static Usuario user;//variable global del usuario logeado
         jButtonTerminarC.setBorderPainted(false);
         jButtonTerminarC.setContentAreaFilled(false);
         jButtonTerminarC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonTerminarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTerminarCActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonTerminarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 40, 40));
+
+        jButton1.setBackground(new java.awt.Color(204, 255, 255));
+        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Nuevo");
+        jButton1.setBorder(null);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 40, 20));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/blanco.jpg"))); // NOI18N
@@ -167,8 +207,24 @@ private static Usuario user;//variable global del usuario logeado
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jTextFieldCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCostoActionPerformed
-        
+
     }//GEN-LAST:event_jTextFieldCostoActionPerformed
+
+    private void jButtonNuevaCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonNuevaCActionPerformed
+
+    private void jButtonTerminarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerminarCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTerminarCActionPerformed
+
+    private void jButtonTerminarAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerminarAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTerminarAgregarActionPerformed
+
+    private void jButtonTerminarAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerminarAgregar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTerminarAgregar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,6 +262,7 @@ private static Usuario user;//variable global del usuario logeado
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonNuevaC;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonTerminarAgregar;
@@ -225,4 +282,23 @@ private static Usuario user;//variable global del usuario logeado
     private javax.swing.JTextField jTextFieldCosto;
     private javax.swing.JTextField jTextFieldTotal;
     // End of variables declaration//GEN-END:variables
+
+    private void LlenarcmProducto() {
+        try {
+            Connection cn = Conexion.conectar();
+            String sql = "";
+            sql = "select *from inventario";
+            String[] datos = new String[4];
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                jComboBoxProducto.addItem(datos[0] + ".  " + datos[1]);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error" + ex);
+        }
+    }
+    
 }
