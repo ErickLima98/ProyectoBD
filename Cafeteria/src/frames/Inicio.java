@@ -144,7 +144,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
         this.dispose();
-        System.exit(0);
+        System.exit(0);        
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     /**S

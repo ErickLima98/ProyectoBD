@@ -583,8 +583,20 @@ public class Cargo extends javax.swing.JFrame {
                 } else {
                     System.out.println("Error");
                 }
-            } else if(estado == 2){ // cuando se crea un nuveo prodcuto
-
+            } else if (estado == 2) { // cuando se crea un nuveo prodcuto
+                int id = obtnerUltimoProducto();
+                PreparedStatement pst = cn.prepareStatement("INSERT INTO detallecompra(Costo, Cantidad, Subtotal, compra_idCompra, menu_idProducto)VALUES(?,?,?,?,?)");
+                pst.setDouble(1, costo);
+                pst.setInt(2, Integer.parseInt(jTextFieldCant.getText()));
+                pst.setDouble(3, (Math.round((Double.parseDouble(jTextFieldCant.getText()) * costo) * 100) / 100d));
+                pst.setInt(4, idP);
+                pst.setInt(5, id);
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    System.out.println("DP2 exitorso");
+                } else {
+                    System.out.println("DP2 Error");
+                }
             }
         } catch (Exception e) {
         }
@@ -594,6 +606,25 @@ public class Cargo extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             String sql = "Select * from cargar";
+            String idP = "";
+            int iD;
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                idP = rs.getString(1);
+            }
+            iD = Integer.parseInt(idP);
+            return iD;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error " + ex);
+            return 0;
+        }
+    }
+
+    private int obtnerUltimoProducto() {
+        try {
+            Connection cn = Conexion.conectar();
+            String sql = "Select * from menu";
             String idP = "";
             int iD;
             Statement st = cn.createStatement();
