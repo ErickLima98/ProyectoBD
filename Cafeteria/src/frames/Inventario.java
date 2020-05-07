@@ -46,7 +46,7 @@ public class Inventario extends javax.swing.JFrame {
                   return col==5;
                }
             };
-            modelo.addColumn("ID Inventario");
+            modelo.addColumn("ID Producto");
             modelo.addColumn("Nombre");
             modelo.addColumn("Cantidad");
             modelo.addColumn("Precio Q.");
@@ -55,7 +55,7 @@ public class Inventario extends javax.swing.JFrame {
             String sql="";
             if (valor.equals(""))
             {
-                sql="SELECT * FROM inventario";
+                sql="SELECT * FROM menu";
             }
             String []datos=new String [5];
             
