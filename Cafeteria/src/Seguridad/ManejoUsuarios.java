@@ -24,7 +24,7 @@ public class ManejoUsuarios {
         
     }
     
-    public ArrayList<Usuario> getUsurios(){
+    public ArrayList<Usuario> getUsuarios(){
         ArrayList<Usuario> usuario = new ArrayList<>();
         try {
             conexion = Conexion.conectar();
@@ -46,7 +46,7 @@ public class ManejoUsuarios {
         ArrayList<Acceso> acceso = new ArrayList<>();
         try {
             conexion = Conexion.conectar();
-            String consulta = "SELECT id, Codigo, Nombre FROM acceso;"; //consulta para la BBDD
+            String consulta = "SELECT idAcceso, Codigo, Nombre FROM acceso;"; //consulta para la BBDD
             PreparedStatement pre = conexion.prepareStatement(consulta);
             ResultSet res = pre.executeQuery();
             while(res.next()){

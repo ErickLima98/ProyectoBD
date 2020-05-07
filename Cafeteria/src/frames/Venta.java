@@ -105,6 +105,8 @@ public class Venta extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(null);
+
+        jTextFieldTotal.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldTotal);
         jTextFieldTotal.setBounds(550, 310, 150, 22);
 
@@ -127,73 +129,77 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(220, 20, 480, 280);
 
+        jButtonNuevaVenta.setBackground(new java.awt.Color(255, 153, 102));
         jButtonNuevaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/NuevaCompraNegro.png"))); // NOI18N
         jButtonNuevaVenta.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Nueva venta</h4>\n\t</div>\n</body>\n</html>");
         jButtonNuevaVenta.setBorderPainted(false);
-        jButtonNuevaVenta.setContentAreaFilled(false);
         jButtonNuevaVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevaVentaActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonNuevaVenta);
-        jButtonNuevaVenta.setBounds(10, 10, 38, 40);
+        jButtonNuevaVenta.setBounds(140, 20, 38, 40);
 
+        jButtonCancelarCompra.setBackground(new java.awt.Color(255, 153, 102));
         jButtonCancelarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/CancelarCarritoNegro.png"))); // NOI18N
         jButtonCancelarCompra.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Cancelar venta</h4>\n\t</div>\n</body>\n</html>");
         jButtonCancelarCompra.setBorderPainted(false);
-        jButtonCancelarCompra.setContentAreaFilled(false);
         jButtonCancelarCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarCompraActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonCancelarCompra);
-        jButtonCancelarCompra.setBounds(130, 10, 38, 38);
+        jButtonCancelarCompra.setBounds(120, 290, 60, 50);
 
+        jButtonTerminarVenta.setBackground(new java.awt.Color(255, 153, 102));
         jButtonTerminarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/ComprarNegro.png"))); // NOI18N
         jButtonTerminarVenta.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Terminar venta</h4>\n\t</div>\n</body>\n</html>");
         jButtonTerminarVenta.setBorderPainted(false);
-        jButtonTerminarVenta.setContentAreaFilled(false);
         jButtonTerminarVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonTerminarVentaActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonTerminarVenta);
-        jButtonTerminarVenta.setBounds(70, 10, 40, 38);
+        jButtonTerminarVenta.setBounds(30, 290, 60, 50);
 
+        jButtonEliminar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/error3.png"))); // NOI18N
         jButtonEliminar.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Cancelar</h4>\n\t</div>\n</body>\n</html>");
         jButtonEliminar.setBorderPainted(false);
-        jButtonEliminar.setContentAreaFilled(false);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonEliminar);
-        jButtonEliminar.setBounds(170, 230, 40, 40);
+        jButtonEliminar.setBounds(160, 230, 40, 40);
 
+        jButtonAgregar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/AñadirNegro.png"))); // NOI18N
         jButtonAgregar.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Agrega producto</h4>\n\t</div>\n</body>\n</html>");
         jButtonAgregar.setBorderPainted(false);
-        jButtonAgregar.setContentAreaFilled(false);
         jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAgregarActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonAgregar);
-        jButtonAgregar.setBounds(120, 230, 38, 40);
+        jButtonAgregar.setBounds(110, 230, 40, 40);
+
+        jTextFieldCantMaxima.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldCantMaxima);
-        jTextFieldCantMaxima.setBounds(20, 180, 60, 22);
+        jTextFieldCantMaxima.setBounds(20, 180, 60, 30);
 
         jLabelCantidadMaxima.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelCantidadMaxima.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCantidadMaxima.setText("Existencias:");
         getContentPane().add(jLabelCantidadMaxima);
         jLabelCantidadMaxima.setBounds(20, 160, 70, 17);
+
+        jTextFieldCantidad.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldCantidad);
         jTextFieldCantidad.setBounds(20, 240, 70, 22);
 
@@ -203,6 +209,7 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jLabelCantidad);
         jLabelCantidad.setBounds(20, 220, 49, 17);
 
+        jComboBoxProducto.setBackground(new java.awt.Color(255, 153, 102));
         jComboBoxProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxProductoActionPerformed(evt);
@@ -217,6 +224,7 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jLabelProducto);
         jLabelProducto.setBounds(20, 110, 59, 17);
 
+        jComboBoxCliente.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jComboBoxCliente);
         jComboBoxCliente.setBounds(20, 80, 170, 22);
 
@@ -226,9 +234,9 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jLabelCliente);
         jLabelCliente.setBounds(20, 60, 45, 17);
 
+        jButtonMenu.setBackground(new java.awt.Color(255, 153, 102));
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonMenu.setBorderPainted(false);
-        jButtonMenu.setContentAreaFilled(false);
         jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMenuActionPerformed(evt);
@@ -241,8 +249,10 @@ public class Venta extends javax.swing.JFrame {
         jLabel1.setText("Precio:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(120, 160, 60, 17);
+
+        jTextFieldPrecio.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldPrecio);
-        jTextFieldPrecio.setBounds(120, 180, 60, 22);
+        jTextFieldPrecio.setBounds(120, 180, 60, 30);
 
         jLabelFondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/blanco.jpg"))); // NOI18N
@@ -282,7 +292,7 @@ public class Venta extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             String sql = "";
-            sql = "select *from inventario";
+            sql = "select *from menu";
             String[] datos = new String[4];
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -325,10 +335,10 @@ public class Venta extends javax.swing.JFrame {
                 int idP = Integer.parseInt(jComboBoxProducto.getSelectedItem().toString().substring(0, 1));
                 int cantP = Integer.parseInt(jTextFieldCantidad.getText());
 
-                PreparedStatement pst = cn.prepareStatement("UPDATE inventario SET "
-                        + "existencias = existencias -'" + cantP + "' "
+                PreparedStatement pst = cn.prepareStatement("UPDATE Menu SET "
+                        + "cantidad = cantidad -'" + cantP + "' "
                         + "WHERE "
-                        + "idInventario ='" + idP + "'");
+                        + "idProducto ='" + idP + "'");
 
                 int a = pst.executeUpdate();
                 if (a > 0) {
@@ -341,10 +351,10 @@ public class Venta extends javax.swing.JFrame {
                 int idP = Integer.parseInt(jTable1.getValueAt(fila, 0).toString().substring(0, 1));
                 int cantP = Integer.parseInt(jTable1.getValueAt(fila, 1).toString());
 
-                PreparedStatement pst = cn.prepareStatement("UPDATE inventario SET "
-                        + "existencias = existencias +'" + cantP + "' "
+                PreparedStatement pst = cn.prepareStatement("UPDATE menu SET "
+                        + "cantidad = cantidad +'" + cantP + "' "
                         + "WHERE "
-                        + "idInventario ='" + idP + "'");
+                        + "idProducto ='" + idP + "'");
 
                 int a = pst.executeUpdate();
                 if (a > 0) {
@@ -383,7 +393,7 @@ public class Venta extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
 
-            String sql = "SELECT Precio_venta FROM inventario WHERE(idInventario ='" + valor + "')";
+            String sql = "SELECT Precio FROM menu WHERE(idProducto ='" + valor + "')";
             String datos = "";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -402,7 +412,7 @@ public class Venta extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
 
-            String sql = "SELECT Existencias FROM inventario WHERE(idInventario ='" + valor + "')";
+            String sql = "SELECT cantidad FROM menu WHERE(idProducto ='" + valor + "')";
             String CantMax = "";
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -601,6 +611,7 @@ public class Venta extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Venta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

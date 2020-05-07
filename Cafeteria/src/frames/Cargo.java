@@ -42,6 +42,7 @@ public class Cargo extends javax.swing.JFrame {
         jButtonAgregar.setEnabled(false);
         jButtonCancelar.setEnabled(false);
         jButtonTerminarC.setEnabled(false);
+        jButtonRefrescar.setEnabled(false);
         jComboBoxProducto.setEnabled(false);
         modelo = new DefaultTableModel();
         modelo.addColumn("Producto"); // se envian los titulos de la tabla
@@ -222,6 +223,12 @@ public class Cargo extends javax.swing.JFrame {
         jButtonRefrescar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/refrescar.png"))); // NOI18N
         jButtonRefrescar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButtonRefrescar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefrescarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonRefrescar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -252,6 +259,7 @@ public class Cargo extends javax.swing.JFrame {
         jButtonAgregar.setEnabled(true);
         jButtonCancelar.setEnabled(true);
         jButtonTerminarC.setEnabled(true);
+        jButtonRefrescar.setEnabled(true);
         jComboBoxProducto.setEnabled(true);
     }//GEN-LAST:event_jButtonNuevaCActionPerformed
 
@@ -260,7 +268,7 @@ public class Cargo extends javax.swing.JFrame {
         if (x == -1) {
             JOptionPane.showMessageDialog(null, "El cargo debe tener productos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            insertarCargo();
+            insertarCargo(); //actualizarCargo
             jButtonNuevo.setEnabled(false);
             jButtonAgregar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
@@ -295,6 +303,7 @@ public class Cargo extends javax.swing.JFrame {
                 modelo.addRow(ObjectTabla); // se agrega toda la fila
                 jTable1.setModel(modelo); // se envia el modelo 
                 insertarMenu();
+                insertarDC(2);
                 jTextFieldNombre.setEnabled(false);
                 jTextFieldPrecio.setEnabled(false);
                 jTextFieldNombre.setText("");
@@ -307,6 +316,7 @@ public class Cargo extends javax.swing.JFrame {
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
                     actualizarInventario(0);
+                    insertarDC(1);
                 } else {
                     ObjectTabla[0] = jComboBoxProducto.getSelectedItem().toString(); // Se agrega el medicamento
                     ObjectTabla[1] = jTextFieldCant.getText(); // Se agrega la cantidad
@@ -314,6 +324,7 @@ public class Cargo extends javax.swing.JFrame {
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
                     actualizarInventario(0);
+                    insertarDC(1);
                 }
             }
             SumarSubtotal();
@@ -330,6 +341,25 @@ public class Cargo extends javax.swing.JFrame {
         jTextFieldNombre.setEnabled(true);
         jTextFieldPrecio.setEnabled(true);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
+
+    private void jButtonRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefrescarActionPerformed
+        try {
+            Connection cn = Conexion.conectar();
+            jComboBoxProducto.removeAllItems();
+            String sql = "";
+            sql = "select *from menu";
+            String[] datos = new String[4];
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                jComboBoxProducto.addItem(datos[0] + ".  " + datos[1]);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error" + ex);
+        }
+    }//GEN-LAST:event_jButtonRefrescarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,6 +386,8 @@ public class Cargo extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Cargo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -432,25 +464,6 @@ public class Cargo extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error" + ex);
-        }
-    }
-
-    private String ObtenerPrecio(String valor) {
-        try {
-            Connection cn = Conexion.conectar();
-
-            String sql = "SELECT Precio FROM menu WHERE(idProducto ='" + valor + "')";
-            String datos = "";
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while (rs.next()) {
-                datos = rs.getString(1);
-            }
-            return datos;
-        }// Fin TRY 
-        catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex);
-            return "";
         }
     }
 
@@ -531,6 +544,30 @@ public class Cargo extends javax.swing.JFrame {
                 System.out.println("Registro exitorso");
             } else {
                 System.out.println("Error");
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private void insertarDC(int estado) {
+        try {
+            Connection cn = Conexion.conectar();
+            double costo = Double.parseDouble(jTextFieldCosto.getText());
+            if (estado == 1) {
+                PreparedStatement pst = cn.prepareStatement("INSERT INTO detallecompra(Costo, Cantidad, Subtotal, compra_idCompra, menu_idProducto)VALUES(?,?,?,?,?)");
+                pst.setDouble(1, costo);
+                pst.setInt(2, Integer.parseInt(jTextFieldCant.getText()));
+                pst.setDouble(3, (Math.round((Double.parseDouble(jTextFieldCant.getText()) * costo) * 100) / 100d));
+                pst.setInt(4, 1);
+                pst.setInt(5, Integer.parseInt(jComboBoxProducto.getSelectedItem().toString().substring(0, 1)));
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    System.out.println("Registro exitorso");
+                } else {
+                    System.out.println("Error");
+                }
+            } else {
+
             }
         } catch (Exception e) {
         }

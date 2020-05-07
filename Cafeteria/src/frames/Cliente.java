@@ -151,64 +151,70 @@ public class Cliente extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonMenu.setBackground(new java.awt.Color(255, 153, 102));
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonMenu.setBorderPainted(false);
-        jButtonMenu.setContentAreaFilled(false);
         jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, 40, -1));
+        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 318, 40, 40));
 
+        jButtonBuscar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/search_1.png"))); // NOI18N
         jButtonBuscar.setBorderPainted(false);
-        jButtonBuscar.setContentAreaFilled(false);
         jButtonBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 40, 30));
+        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 40, 30));
+
+        jTextFieldBuscar.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 180, -1));
 
+        jButtonAgregar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/check2.png"))); // NOI18N
         jButtonAgregar.setBorderPainted(false);
-        jButtonAgregar.setContentAreaFilled(false);
         jButtonAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 40, 40));
+        getContentPane().add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 40, 40));
 
+        jButtonCancelar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/error3.png"))); // NOI18N
         jButtonCancelar.setBorderPainted(false);
-        jButtonCancelar.setContentAreaFilled(false);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 40, 40));
+        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 40, 40));
 
+        jButtonNuevo.setBackground(new java.awt.Color(255, 153, 102));
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/AñadirNegro.png"))); // NOI18N
         jButtonNuevo.setBorderPainted(false);
-        jButtonNuevo.setContentAreaFilled(false);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevoActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 40, 40));
+
+        jTextFieldDireccion.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 130, 60));
 
         jLabelDireccion.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelDireccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDireccion.setText("Direccion :");
         getContentPane().add(jLabelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        jTextFieldNit.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 130, -1));
 
         jLabelNit.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -216,6 +222,7 @@ public class Cliente extends javax.swing.JFrame {
         jLabelNit.setText("Nit :");
         getContentPane().add(jLabelNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
+        jTextFieldNombre.setBackground(new java.awt.Color(255, 153, 102));
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
@@ -227,6 +234,8 @@ public class Cliente extends javax.swing.JFrame {
         jLabelTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTelefono.setText("Telefono :");
         getContentPane().add(jLabelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+
+        jTextFieldTelefono.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 130, -1));
 
         jLabelNombre.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -234,6 +243,7 @@ public class Cliente extends javax.swing.JFrame {
         jLabelNombre.setText("Nombre :");
         getContentPane().add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
+        jTable1.setBackground(new java.awt.Color(255, 153, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -246,17 +256,18 @@ public class Cliente extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 520, 290));
 
+        jButtonModificar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Lapiz.png"))); // NOI18N
         jButtonModificar.setBorderPainted(false);
-        jButtonModificar.setContentAreaFilled(false);
         jButtonModificar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModificarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 40, 40));
+        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 40, 40));
 
+        jButtonMostrar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonMostrar.setText("Mostrar");
         jButtonMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -465,6 +476,8 @@ public class Cliente extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

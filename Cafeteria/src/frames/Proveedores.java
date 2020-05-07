@@ -33,10 +33,10 @@ public class Proveedores extends javax.swing.JFrame {
         jButtonNuevo.setVisible(true);
         jButtonCancelar.setVisible(false);
         
-        jTextFieldNombre.setEnabled(false);
-        jTextFieldTelefono.setEnabled(false);
-        jTextFieldNit.setEnabled(false);
-        jTextFieldDireccion.setEnabled(false);
+        nombre.setEnabled(false);
+        telefono.setEnabled(false);
+        empresa.setEnabled(false);
+        direccion.setEnabled(false);
       
         jButtonAgregar.setEnabled(false);
         jButtonAgregar.setVisible(false);
@@ -44,16 +44,16 @@ public class Proveedores extends javax.swing.JFrame {
     }
     
     private int Validar(){
-        if(jTextFieldNombre.getText().length()==0){
+        if(nombre.getText().length()==0){
             JOptionPane.showMessageDialog(null, "Llenar Todos Los Campos", "Error", JOptionPane.ERROR_MESSAGE);
             return 1;
-        }else if(jTextFieldTelefono.getText().length()==0){
+        }else if(telefono.getText().length()==0){
             JOptionPane.showMessageDialog(null, "Llenar Todos Los Campos", "Error", JOptionPane.ERROR_MESSAGE);
             return 1;
-        }else if(jTextFieldNit.getText().length()==0){
+        }else if(empresa.getText().length()==0){
             JOptionPane.showMessageDialog(null, "Llenar Todos Los Campos", "Error", JOptionPane.ERROR_MESSAGE);
             return 1;
-        }else if(jTextFieldDireccion.getText().length()==0){
+        }else if(direccion.getText().length()==0){
             JOptionPane.showMessageDialog(null, "Llenar Todos Los Campos", "Error", JOptionPane.ERROR_MESSAGE);
             return 1;
         }else{
@@ -116,13 +116,13 @@ public class Proveedores extends javax.swing.JFrame {
         jButtonAgregar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonNuevo = new javax.swing.JButton();
-        jTextFieldDireccion = new javax.swing.JTextField();
+        direccion = new javax.swing.JTextField();
         jLabelDireccion = new javax.swing.JLabel();
-        jTextFieldNit = new javax.swing.JTextField();
+        empresa = new javax.swing.JTextField();
         jLabelNit = new javax.swing.JLabel();
-        jTextFieldNombre = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
         jLabelTelefono = new javax.swing.JLabel();
-        jTextFieldTelefono = new javax.swing.JTextField();
+        telefono = new javax.swing.JTextField();
         jLabelNombre = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -151,83 +151,97 @@ public class Proveedores extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButtonMenu.setBackground(new java.awt.Color(255, 153, 102));
         jButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Login2.png"))); // NOI18N
         jButtonMenu.setBorderPainted(false);
-        jButtonMenu.setContentAreaFilled(false);
         jButtonMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMenuActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, 40, -1));
+        getContentPane().add(jButtonMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 318, 40, 40));
 
+        jButtonBuscar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/search_1.png"))); // NOI18N
         jButtonBuscar.setBorderPainted(false);
-        jButtonBuscar.setContentAreaFilled(false);
         jButtonBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 320, 40, 30));
+        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 40, 30));
+
+        jTextFieldBuscar.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 180, -1));
 
+        jButtonAgregar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/check2.png"))); // NOI18N
         jButtonAgregar.setBorderPainted(false);
-        jButtonAgregar.setContentAreaFilled(false);
         jButtonAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAgregarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 40, 40));
+        getContentPane().add(jButtonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 40, 40));
 
+        jButtonCancelar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/error3.png"))); // NOI18N
         jButtonCancelar.setBorderPainted(false);
-        jButtonCancelar.setContentAreaFilled(false);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 40, 40));
+        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 40, 40));
 
+        jButtonNuevo.setBackground(new java.awt.Color(255, 153, 102));
         jButtonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/AñadirNegro.png"))); // NOI18N
         jButtonNuevo.setBorderPainted(false);
-        jButtonNuevo.setContentAreaFilled(false);
         jButtonNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevoActionPerformed(evt);
             }
         });
         getContentPane().add(jButtonNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 40, 40));
-        getContentPane().add(jTextFieldDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 130, 60));
+
+        direccion.setBackground(new java.awt.Color(255, 153, 102));
+        getContentPane().add(direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 130, 60));
 
         jLabelDireccion.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelDireccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelDireccion.setText("Direccion :");
         getContentPane().add(jLabelDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
-        getContentPane().add(jTextFieldNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 130, -1));
+
+        empresa.setBackground(new java.awt.Color(255, 153, 102));
+        empresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empresaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(empresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 130, -1));
 
         jLabelNit.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelNit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelNit.setText("Nit :");
+        jLabelNit.setText("Empresa :");
         getContentPane().add(jLabelNit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
+        nombre.setBackground(new java.awt.Color(255, 153, 102));
+        nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombreActionPerformed(evt);
+                nombreActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, -1));
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, -1));
 
         jLabelTelefono.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelTelefono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTelefono.setText("Telefono :");
         getContentPane().add(jLabelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
-        getContentPane().add(jTextFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 130, -1));
+
+        telefono.setBackground(new java.awt.Color(255, 153, 102));
+        getContentPane().add(telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 130, -1));
 
         jLabelNombre.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -246,17 +260,18 @@ public class Proveedores extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 520, 290));
 
+        jButtonModificar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/Lapiz.png"))); // NOI18N
         jButtonModificar.setBorderPainted(false);
-        jButtonModificar.setContentAreaFilled(false);
         jButtonModificar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModificarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 40, 40));
+        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 40, 40));
 
+        jButtonMostrar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonMostrar.setText("Mostrar");
         jButtonMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,9 +287,9 @@ public class Proveedores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+    }//GEN-LAST:event_nombreActionPerformed
 
     private void jButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuActionPerformed
         // TODO add your handling code here:
@@ -291,42 +306,48 @@ public class Proveedores extends javax.swing.JFrame {
         jButtonAgregar.setVisible(true);
         jButtonAgregar.setEnabled(true);
         
-        jTextFieldNombre.setEnabled(true);
-        jTextFieldNombre.setText("");
-        jTextFieldTelefono.setEnabled(true);
-        jTextFieldTelefono.setText("");
-        jTextFieldNit.setEnabled(true);
-        jTextFieldNit.setText("");
-        jTextFieldDireccion.setEnabled(true);
-        jTextFieldDireccion.setText("");
+        nombre.setEnabled(true);
+        nombre.setText("");
+        telefono.setEnabled(true);
+        telefono.setText("");
+        empresa.setEnabled(true);
+        empresa.setText("");
+        direccion.setEnabled(true);
+        direccion.setText("");
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        try {Connection cn=Conexion.conectar();
-        {
-            if(Validar()==0){
-                PreparedStatement pst = cn.prepareStatement("INSERT INTO cliente(Nombre,Telefono,Nit,Direccion)Values(?,?,?,?)");
-                pst.setString(1,jTextFieldNombre.getText());
-                pst.setString(2,jTextFieldTelefono.getText());
-                pst.setString(3,jTextFieldNit.getText());
-                pst.setString(4,jTextFieldDireccion.getText());
-                
-                int a =pst.executeUpdate();
-                if(a>0){
-                    JOptionPane.showMessageDialog(null,"Registro Exitos");
-                    MostrarDatos("");
-                    jTextFieldNombre.setText(null);
-                    jTextFieldTelefono.setText(null);
-                    jTextFieldDireccion.setText(null);
-                    jTextFieldNit.setText(null);
-                    jTextFieldTelefono.setText(null);
-                }else{
-                    JOptionPane.showMessageDialog(null,"Error al Agragar");
-                }//fin del segundo if
-            }else{
-                JOptionPane.showMessageDialog(null, "Llenar Todos los Campos","Error",JOptionPane.ERROR_MESSAGE);
-            }//fin del primer if
-        }//Fin del tray conexion 
+        try {
+            Connection cn = Conexion.conectar();
+            {
+                if(Validar()==0)
+                {
+                    PreparedStatement pst = cn.prepareStatement("INSERT INTO proveedores(Nombre,Direccion,empresa, numero)VALUES(?,?,?,?)");
+                    pst.setString(1,nombre.getText());
+                    pst.setString(2,direccion.getText());
+                    pst.setString(3,empresa.getText());
+                    pst.setString(4,telefono.getText());
+                    int a = pst.executeUpdate();
+                    if(a>0)
+                    {
+                        JOptionPane.showMessageDialog(null,"Registro Exitoso");
+                        MostrarDatos("");
+                        nombre.setText(null);
+                        direccion.setText(null);
+                        empresa.setText(null);
+                        telefono.setText(null);
+                        jButtonCancelar.setVisible(false);
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null,"Error al agregar");
+                    }
+                }//Fin del if
+                else
+                {
+                    JOptionPane.showMessageDialog(null,"Llenar Todos Los Campos","ERROR",JOptionPane.ERROR_MESSAGE);
+                }
+            }//Fin Conexion
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -343,13 +364,13 @@ public class Proveedores extends javax.swing.JFrame {
             }
             try {
                 if (Validar()==0) {
-                    PreparedStatement pst = cn.prepareStatement("UPDATE cliente set idCliente='"+idC+"',Nombre='"+jTextFieldNombre.getText()+"',Direccion='"+jTextFieldDireccion.getText()+"',Telefono='"+jTextFieldTelefono.getText()+"',Nit='"+jTextFieldNit.getText()+"'WHERE idCliente='"+idC+"'");
+                    PreparedStatement pst = cn.prepareStatement("UPDATE cliente set idCliente='"+idC+"',Nombre='"+nombre.getText()+"',Direccion='"+direccion.getText()+"',Telefono='"+telefono.getText()+"',Nit='"+empresa.getText()+"'WHERE idCliente='"+idC+"'");
                     pst.executeUpdate();
                     MostrarDatos("");
-                    jTextFieldNombre.setText(null);
-                    jTextFieldTelefono.setText(null);
-                    jTextFieldDireccion.setText(null);
-                    jTextFieldNit.setText(null);
+                    nombre.setText(null);
+                    telefono.setText(null);
+                    direccion.setText(null);
+                    empresa.setText(null);
                     jButtonModificar.setVisible(false);
                     jButtonCancelar.setVisible(false);
                     jButtonNuevo.setVisible(true);
@@ -372,15 +393,15 @@ public class Proveedores extends javax.swing.JFrame {
         jButtonAgregar.setVisible(false);
         jButtonModificar.setVisible(false);        
          
-        jTextFieldNombre.setEnabled(false);
-        jTextFieldTelefono.setEnabled(false);
-        jTextFieldNit.setEnabled(false);
-        jTextFieldDireccion.setEnabled(false);
+        nombre.setEnabled(false);
+        telefono.setEnabled(false);
+        empresa.setEnabled(false);
+        direccion.setEnabled(false);
 
-        jTextFieldNombre.setText("");
-        jTextFieldTelefono.setText("");
-        jTextFieldNit.setText("");
-        jTextFieldDireccion.setText("");
+        nombre.setText("");
+        telefono.setText("");
+        empresa.setText("");
+        direccion.setText("");
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -391,10 +412,10 @@ public class Proveedores extends javax.swing.JFrame {
         jButtonAgregar.setVisible(false);
         jButtonNuevo.setVisible(false);
 
-        jTextFieldNombre.setEnabled(true);
-        jTextFieldTelefono.setEnabled(true);
-        jTextFieldNit.setEnabled(true);
-        jTextFieldDireccion.setEnabled(true);
+        nombre.setEnabled(true);
+        telefono.setEnabled(true);
+        empresa.setEnabled(true);
+        direccion.setEnabled(true);
         
         int fila=jTable1.getSelectedRow();
         if (fila==-1){
@@ -403,10 +424,10 @@ public class Proveedores extends javax.swing.JFrame {
             jButtonModificar.setVisible(true);
             jButtonCancelar.setVisible(true);
             //--------------------------------------------
-            jTextFieldNombre.setText(jTable1.getValueAt(fila,1).toString());
-            jTextFieldTelefono.setText(jTable1.getValueAt(fila,2).toString());
-            jTextFieldNit.setText(jTable1.getValueAt(fila,3).toString());
-            jTextFieldDireccion.setText(jTable1.getValueAt(fila,4).toString());
+            nombre.setText(jTable1.getValueAt(fila,1).toString());
+            telefono.setText(jTable1.getValueAt(fila,2).toString());
+            empresa.setText(jTable1.getValueAt(fila,3).toString());
+            direccion.setText(jTable1.getValueAt(fila,4).toString());
         }
     }//GEN-LAST:event_jMenuModificarActionPerformed
 
@@ -417,15 +438,15 @@ public class Proveedores extends javax.swing.JFrame {
         jButtonAgregar.setEnabled(true);
         jButtonModificar.setVisible(false);
          
-        jTextFieldNombre.setEnabled(true);
-        jTextFieldTelefono.setEnabled(true);
-        jTextFieldNit.setEnabled(true);
-        jTextFieldDireccion.setEnabled(true);
+        nombre.setEnabled(true);
+        telefono.setEnabled(true);
+        empresa.setEnabled(true);
+        direccion.setEnabled(true);
         
-        jTextFieldNombre.setText("");
-        jTextFieldTelefono.setText("");
-        jTextFieldNit.setText("");
-        jTextFieldDireccion.setText("");
+        nombre.setText("");
+        telefono.setText("");
+        empresa.setText("");
+        direccion.setText("");
     }//GEN-LAST:event_jMenuInsertarActionPerformed
 
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
@@ -433,12 +454,16 @@ public class Proveedores extends javax.swing.JFrame {
         jButtonNuevo.setVisible(true);
         jButtonAgregar.setVisible(false);     
         jButtonModificar.setVisible(false);
-        jTextFieldNombre.setText("");
-        jTextFieldTelefono.setText("");
-        jTextFieldNit.setText("");
-        jTextFieldDireccion.setText("");
+        nombre.setText("");
+        telefono.setText("");
+        empresa.setText("");
+        direccion.setText("");
         jTextFieldBuscar.setText("");
     }//GEN-LAST:event_jButtonMostrarActionPerformed
+
+    private void empresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_empresaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -473,6 +498,14 @@ public class Proveedores extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -483,6 +516,8 @@ public class Proveedores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField direccion;
+    private javax.swing.JTextField empresa;
     private javax.swing.JButton jButtonAgregar;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonCancelar;
@@ -501,9 +536,7 @@ public class Proveedores extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldBuscar;
-    private javax.swing.JTextField jTextFieldDireccion;
-    private javax.swing.JTextField jTextFieldNit;
-    private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldTelefono;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JTextField telefono;
     // End of variables declaration//GEN-END:variables
 }
