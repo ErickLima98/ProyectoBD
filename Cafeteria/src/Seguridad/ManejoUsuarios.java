@@ -5,6 +5,10 @@
  */
 package Seguridad;
 
+import Seguridad.Acceso;
+import Seguridad.Conexion;
+import Seguridad.Login;
+import Seguridad.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +29,6 @@ public class ManejoUsuarios {
     }
     
     public ArrayList<Usuario> getUsuarios(){
-    public ArrayList<Usuario> getUsurios(){
         ArrayList<Usuario> usuario = new ArrayList<>();
         try {
             conexion = Conexion.conectar();
@@ -48,7 +51,6 @@ public class ManejoUsuarios {
         try {
             conexion = Conexion.conectar();
             String consulta = "SELECT idAcceso, Codigo, Nombre FROM acceso;"; //consulta para la BBDD
-            String consulta = "SELECT id, Codigo, Nombre FROM acceso;"; //consulta para la BBDD
             PreparedStatement pre = conexion.prepareStatement(consulta);
             ResultSet res = pre.executeQuery();
             while(res.next()){
@@ -130,7 +132,6 @@ public class ManejoUsuarios {
     public boolean chageAccess(Usuario user, int acceso){
          try {
              conexion = Conexion.conectar();//se conecta a la base de datos
-             String consulta = "UPDATE usuario SET Acceso_idAcceso ="+acceso+" WHERE idUsuario = "+user.getUserId()+";";//consulta para la BBDD
              String consulta = "UPDATE usuario SET Accesos_idAcceso ="+acceso+" WHERE idUsuario = "+user.getUserId()+";";//consulta para la BBDD
              PreparedStatement pre = conexion.prepareStatement(consulta);//se prepara la consulta
              int res = pre.executeUpdate();//se ejecuta la consulta
