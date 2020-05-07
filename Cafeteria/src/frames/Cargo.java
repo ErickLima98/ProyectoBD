@@ -293,10 +293,10 @@ public class Cargo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonTerminarCActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        double costo = Double.parseDouble(jTextFieldCosto.getText().toString());
         boolean acti = jTextFieldNombre.isEnabled();
 
         if (Validar() == 0) {
+            double costo = Double.parseDouble(jTextFieldCosto.getText().toString());
             if (acti == true) {
                 ObjectTabla[0] = jTextFieldNombre.getText(); // Se agrega el produc
                 ObjectTabla[1] = jTextFieldCant.getText(); // Se agrega la cantidad
@@ -335,7 +335,32 @@ public class Cargo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
+        try {
+            Connection cn = Conexion.conectar();
+            int id = obtenerUltimoC();
+            PreparedStatement pst = cn.prepareStatement("DELETE FROM cargar WHERE idCompra='" + id + "'");
+            jButtonNuevo.setEnabled(false);
+            jButtonAgregar.setEnabled(false);
+            jButtonCancelar.setEnabled(false);
+            jButtonTerminarC.setEnabled(false);
+            jComboBoxProducto.setEnabled(false);
+            jTextFieldCant.setEnabled(false);
+            jTextFieldCosto.setEnabled(false);
+            jTextFieldPrecio.setEnabled(false);
+            jTextFieldNombre.setEnabled(false);
+            jTextFieldCant.setText("");
+            jTextFieldCosto.setText("");
+            jTextFieldNombre.setText("");
+            jTextFieldPrecio.setText("");
+            jTextFieldTotal.setText("");
+            int a = pst.executeUpdate();
+            if (a > 0) {
+                System.out.println("Si se elimino");
+            } else {
+                System.out.println("No se elimino");
+            }
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
@@ -497,7 +522,8 @@ public class Cargo extends javax.swing.JFrame {
             Connection cn = Conexion.conectar();
 
             if (estado == 0) {
-                int idP = Integer.parseInt(jComboBoxProducto.getSelectedItem().toString().substring(0, 1));
+                //int idP = Integer.parseInt(jComboBoxProducto.getSelectedItem().toString().substring(0, 1));
+                int idP = obtenerID();
                 int cantP = Integer.parseInt(jTextFieldCant.getText());
 
                 PreparedStatement pst = cn.prepareStatement("UPDATE Menu SET "
@@ -513,7 +539,8 @@ public class Cargo extends javax.swing.JFrame {
                 }
             } else if (estado == 1) {//si el esado es 1 se debe de decontar lo que se habia agregado en la venta parcial    
                 int fila = jTable1.getSelectedRow();
-                int idP = Integer.parseInt(jTable1.getValueAt(fila, 0).toString().substring(0, 1));
+                //int idP = Integer.parseInt(jTable1.getValueAt(fila, 0).toString().substring(0, 1));
+                int idP = obtenerID();
                 int cantP = Integer.parseInt(jTable1.getValueAt(fila, 1).toString());
 
                 PreparedStatement pst = cn.prepareStatement("UPDATE menu SET "
@@ -638,5 +665,21 @@ public class Cargo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error " + ex);
             return 0;
         }
+    }
+
+    private int obtenerID() {
+        int id = 0;
+        String idP = "";
+        int s = jComboBoxProducto.getSelectedItem().toString().length();
+        String cadena = jComboBoxProducto.getSelectedItem().toString();        
+        for (int i = 0; i <= s; i++) {            
+            if (cadena.charAt(i) == '.') {
+                break;
+            } else {
+                idP = idP + cadena.charAt(i);
+            }
+        }        
+        id = Integer.parseInt(idP);
+        return id;
     }
 }
