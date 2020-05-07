@@ -74,7 +74,6 @@ public class Venta extends javax.swing.JFrame {
         jButtonNuevaVenta = new javax.swing.JButton();
         jButtonCancelarCompra = new javax.swing.JButton();
         jButtonTerminarVenta = new javax.swing.JButton();
-        jButtonEliminar = new javax.swing.JButton();
         jButtonAgregar = new javax.swing.JButton();
         jTextFieldCantMaxima = new javax.swing.JTextField();
         jLabelCantidadMaxima = new javax.swing.JLabel();
@@ -88,6 +87,7 @@ public class Venta extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldPrecio = new javax.swing.JTextField();
         jLabelFondo = new javax.swing.JLabel();
+        jButtonEliminar = new javax.swing.JButton();
 
         jMenuEliminar.setText("jMenuItem1");
         jMenuEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -165,18 +165,6 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jButtonTerminarVenta);
         jButtonTerminarVenta.setBounds(30, 290, 60, 50);
 
-        jButtonEliminar.setBackground(new java.awt.Color(255, 153, 102));
-        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/error3.png"))); // NOI18N
-        jButtonEliminar.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Cancelar</h4>\n\t</div>\n</body>\n</html>");
-        jButtonEliminar.setBorderPainted(false);
-        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonEliminar);
-        jButtonEliminar.setBounds(160, 230, 40, 40);
-
         jButtonAgregar.setBackground(new java.awt.Color(255, 153, 102));
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/AñadirNegro.png"))); // NOI18N
         jButtonAgregar.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Agrega producto</h4>\n\t</div>\n</body>\n</html>");
@@ -187,7 +175,7 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonAgregar);
-        jButtonAgregar.setBounds(110, 230, 40, 40);
+        jButtonAgregar.setBounds(130, 230, 40, 40);
 
         jTextFieldCantMaxima.setBackground(new java.awt.Color(255, 153, 102));
         getContentPane().add(jTextFieldCantMaxima);
@@ -259,6 +247,18 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jLabelFondo);
         jLabelFondo.setBounds(0, 0, 770, 350);
 
+        jButtonEliminar.setBackground(new java.awt.Color(255, 153, 102));
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/error3.png"))); // NOI18N
+        jButtonEliminar.setToolTipText("<html>\n<head>\n\t<style>\n\t\t #contenido{ \n\t\tbackground: #111111;  /*Se le da un color de fondo*/\n\t\tcolor: white;\t\t  /*Color a la letra*/\n\t\t}\n\t</style>\n</head>\n<body>\n\t<div id=contenido>\n\t\t<h4>Cancelar</h4>\n\t</div>\n</body>\n</html>");
+        jButtonEliminar.setBorderPainted(false);
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonEliminar);
+        jButtonEliminar.setBounds(160, 230, 40, 40);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -306,23 +306,34 @@ public class Venta extends javax.swing.JFrame {
         }
     }
 
-    private void insertarVenta() {
+    private void insertarVenta(int e) {
         try {
             Connection cn = Conexion.conectar();
-            java.util.Date d = new java.util.Date();
-            java.sql.Date date = new java.sql.Date(d.getTime());
-
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO venta(Fecha, Total, Usuario_idUsuario, Cliente_idCliente) VALUES(?,?,?,?)");
-            pst.setDate(1, date);
-            pst.setDouble(2, Double.parseDouble(jTextFieldTotal.getText()));
-            pst.setInt(3, 1);
-            pst.setInt(4, Integer.parseInt(jComboBoxCliente.getSelectedItem().toString().substring(0, 1)));
-            int a = pst.executeUpdate();
-            if (a > 0) {
-                JOptionPane.showMessageDialog(null, "Venta Generada");
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al Generar Venta");
+            if (e == 1) {
+                PreparedStatement pst = cn.prepareStatement("INSERT INTO venta(Total, Usuario_idUsuario, Cliente_idCliente) VALUES(?,?,?)");
+                pst.setDouble(1, 0);
+                pst.setInt(2, 1);///USER
+                pst.setInt(3, 1);
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    JOptionPane.showMessageDialog(null, "Venta Generada");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al Generar Venta");
+                }
+            } else if (e == 2) {
+                double tot = Double.parseDouble(jTextFieldTotal.getText());
+                int idV = obtenerUltimaVent();
+                int idC = Integer.parseInt(jComboBoxCliente.getSelectedItem().toString().substring(0, 1));
+                PreparedStatement pst = cn.prepareStatement("UPDATE venta SET Total ='" + tot + "', Cliente_idCliente ='" + idC + "' WHERE idVenta ='" + idV + "'");
+                //PreparedStatement pst2 = cn.prepareStatement("UPDATE venta SET Cliente_idCliente ='" + idC + "' WHERE idVenta ='" + idV + "'");
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    System.out.println("SI");
+                } else {
+                    System.out.println("NO");
+                }
             }
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error" + ex);
         }
@@ -332,7 +343,7 @@ public class Venta extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             if (estado == 0) { //si el estado es 0 es porque se genera una nueva venta y se debe de descontar de existencias de inv
-                int idP = Integer.parseInt(jComboBoxProducto.getSelectedItem().toString().substring(0, 1));
+                int idP = obtnerID();
                 int cantP = Integer.parseInt(jTextFieldCantidad.getText());
 
                 PreparedStatement pst = cn.prepareStatement("UPDATE Menu SET "
@@ -355,10 +366,10 @@ public class Venta extends javax.swing.JFrame {
                         + "cantidad = cantidad +'" + cantP + "' "
                         + "WHERE "
                         + "idProducto ='" + idP + "'");
-
+                
                 int a = pst.executeUpdate();
                 if (a > 0) {
-                    System.out.println("Acutlizado");
+                    System.out.println("Acutlizadosdcuds");
                 } else {
                     System.out.println("Error al acutlizar");
                 }
@@ -456,23 +467,25 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMenuActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        int fila = jTable1.getSelectedRow();
-        Object[] botones = {"SI", " NO"};
-
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione una casilla en la tabla", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int k = JOptionPane.showOptionDialog(null, "Eliminar producto de la venta?", "ELIMINAR", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
-            if (k == JOptionPane.YES_OPTION) {
-                actualizarInventario(1);
-                int x = jTable1.getRowCount() - 1;
-                modelo.removeRow(fila);
-                SumarSubtotal();
-            }
-        }
+//        int fila = jTable1.getSelectedRow();
+//        Object[] botones = {"SI", " NO"};
+//
+//        if (fila == -1) {
+//            JOptionPane.showMessageDialog(null, "Seleccione una casilla en la tabla", "ERROR", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            int k = JOptionPane.showOptionDialog(null, "Eliminar producto de la venta?", "ELIMINAR", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
+//            if (k == JOptionPane.YES_OPTION) {
+//                //actualizarInventario(1);
+//                eliminardv1();
+//                int x = jTable1.getRowCount() - 1;
+//                modelo.removeRow(fila);
+//                SumarSubtotal();
+//            }
+//        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaVentaActionPerformed
+        insertarVenta(1);
         jButtonTerminarVenta.setEnabled(true);
         jButtonCancelarCompra.setEnabled(true);
         jButtonAgregar.setEnabled(true);
@@ -498,6 +511,7 @@ public class Venta extends javax.swing.JFrame {
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
                     actualizarInventario(0);
+                    insertarDV();
                 } else {
                     ObjectTabla[0] = jComboBoxProducto.getSelectedItem().toString(); // Se agrega el medicamento
                     ObjectTabla[1] = jTextFieldCantidad.getText(); // Se agrega la cantidad
@@ -505,6 +519,7 @@ public class Venta extends javax.swing.JFrame {
                     modelo.addRow(ObjectTabla); // se agrega toda la fila
                     jTable1.setModel(modelo); // se envia el modelo 
                     actualizarInventario(0);
+                    insertarDV();
                 }
                 SumarSubtotal();
                 jTextFieldCantidad.setText("");
@@ -517,7 +532,7 @@ public class Venta extends javax.swing.JFrame {
         if (x == -1) {
             JOptionPane.showMessageDialog(null, "La Venta Debe tener productos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            insertarVenta();
+            insertarVenta(2);
             jButtonTerminarVenta.setEnabled(false);
             jButtonAgregar.setEnabled(false);
             jButtonEliminar.setEnabled(false);
@@ -544,11 +559,12 @@ public class Venta extends javax.swing.JFrame {
             int x = jTable1.getRowCount() - 1; // Se obtiene el numero de filas -1 porque empieza en 0            
             int Ultim = obtenerUltimaVent(); // Se obtiene la venta que se genero                      
             int k = JOptionPane.showOptionDialog(null, "Cancelar la ultima venta?", "CANCELAR", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, botones, botones[0]);
-
+            eliminarDV();
             if (k == JOptionPane.YES_OPTION) {
                 if (x == -1) {
-                    PreparedStatement pst = cn.prepareStatement("DELETE FROM venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
-                    pst.executeUpdate(); // Manda la instruccion
+
+                    PreparedStatement pst2 = cn.prepareStatement("DELETE FROM venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
+                    pst2.executeUpdate(); // Manda la instruccion
                     JOptionPane.showMessageDialog(null, "Venta cancelada");
                 } else {
                     PreparedStatement pst = cn.prepareStatement("DELETE FROM Venta WHERE idVenta='" + Ultim + "'");// Se borra la compra
@@ -649,4 +665,55 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPrecio;
     private javax.swing.JTextField jTextFieldTotal;
     // End of variables declaration//GEN-END:variables
+
+    private void insertarDV() {
+        try {
+            Connection cn = Conexion.conectar();
+            double precio = Double.parseDouble(ObtenerPrecio(jComboBoxProducto.getSelectedItem().toString()));
+            int idV = obtenerUltimaVent();
+            int idP = obtnerID();
+
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO detalleventa(Precio, Cantididad, Subtotal, menu_idProducto, venta_idVenta)VALUES(?,?,?,?,?)");
+            pst.setDouble(1, precio);
+            pst.setInt(2, Integer.parseInt(jTextFieldCantidad.getText()));
+            pst.setDouble(3, (Math.round((Double.parseDouble(jTextFieldCantidad.getText()) * precio) * 100) / 100d));
+            pst.setInt(4, idP);
+            pst.setInt(5, idV);
+            int a = pst.executeUpdate();
+            if (a > 0) {
+                System.out.println("Registro exitorso");
+            } else {
+                System.out.println("Error");
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private int obtnerID() {
+        int id = 0;
+        String idP = "";
+        int s = jComboBoxProducto.getSelectedItem().toString().length();
+        String cadena = jComboBoxProducto.getSelectedItem().toString();
+        for (int i = 0; i <= s; i++) {
+            if (cadena.charAt(i) == '.') {
+                break;
+            } else {
+                idP = idP + cadena.charAt(i);
+            }
+        }
+        id = Integer.parseInt(idP);
+        return id;
+    }
+
+    private void eliminarDV() {
+        try {
+            Connection cn = Conexion.conectar();
+            int Ultim = obtenerUltimaVent(); // Se obtiene la venta que se genero             
+            PreparedStatement pst = cn.prepareStatement("DELETE FROM detalleventa WHERE venta_idVenta='" + Ultim + "'");
+            pst.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    
 }
