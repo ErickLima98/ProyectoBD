@@ -253,6 +253,7 @@ public class Cargo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCostoActionPerformed
 
     private void jButtonNuevaCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaCActionPerformed
+        insertarCargo(1);
         jTextFieldCant.setEnabled(true);
         jTextFieldCosto.setEnabled(true);
         jButtonNuevo.setEnabled(true);
@@ -268,7 +269,7 @@ public class Cargo extends javax.swing.JFrame {
         if (x == -1) {
             JOptionPane.showMessageDialog(null, "El cargo debe tener productos", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            insertarCargo(); //actualizarCargo
+            insertarCargo(2); //actualizarCargo
             jButtonNuevo.setEnabled(false);
             jButtonAgregar.setEnabled(false);
             jButtonCancelar.setEnabled(false);
@@ -450,17 +451,28 @@ public class Cargo extends javax.swing.JFrame {
         }
     }
 
-    private void insertarCargo() {
+    private void insertarCargo(int e) {
         try {
             Connection cn = Conexion.conectar();
-
-            PreparedStatement pst = cn.prepareStatement("INSERT INTO cargar(Total) VALUES(?)");
-            pst.setDouble(1, Double.parseDouble(jTextFieldTotal.getText()));
-            int a = pst.executeUpdate();
-            if (a > 0) {
-                JOptionPane.showMessageDialog(null, "Cargo Generado");
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al Generar Cargo");
+            if (e == 1) {
+                PreparedStatement pst = cn.prepareStatement("INSERT INTO cargar(Total) VALUES(?)");
+                pst.setDouble(1, 0);
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    System.out.println("SiP");
+                } else {
+                    System.out.println("NoP");
+                }
+            } else if (e == 2) {
+                double tot = Double.parseDouble(jTextFieldTotal.getText());
+                int idP = obtenerUltimoC();
+                PreparedStatement pst = cn.prepareStatement("UPDATE cargar SET Total ='" + tot + "' WHERE idCompra ='" + idP + "'");
+                int a = pst.executeUpdate();
+                if (a > 0) {
+                    System.out.println("SI");
+                } else {
+                    System.out.println("NO");
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error" + ex);
@@ -553,12 +565,13 @@ public class Cargo extends javax.swing.JFrame {
         try {
             Connection cn = Conexion.conectar();
             double costo = Double.parseDouble(jTextFieldCosto.getText());
+            int idP = obtenerUltimoC();
             if (estado == 1) {
                 PreparedStatement pst = cn.prepareStatement("INSERT INTO detallecompra(Costo, Cantidad, Subtotal, compra_idCompra, menu_idProducto)VALUES(?,?,?,?,?)");
                 pst.setDouble(1, costo);
                 pst.setInt(2, Integer.parseInt(jTextFieldCant.getText()));
                 pst.setDouble(3, (Math.round((Double.parseDouble(jTextFieldCant.getText()) * costo) * 100) / 100d));
-                pst.setInt(4, 1);
+                pst.setInt(4, idP);
                 pst.setInt(5, Integer.parseInt(jComboBoxProducto.getSelectedItem().toString().substring(0, 1)));
                 int a = pst.executeUpdate();
                 if (a > 0) {
@@ -566,10 +579,29 @@ public class Cargo extends javax.swing.JFrame {
                 } else {
                     System.out.println("Error");
                 }
-            } else {
+            } else if(estado == 2){ // cuando se crea un nuveo prodcuto
 
             }
         } catch (Exception e) {
+        }
+    }
+
+    private int obtenerUltimoC() {
+        try {
+            Connection cn = Conexion.conectar();
+            String sql = "Select * from cargar";
+            String idP = "";
+            int iD;
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                idP = rs.getString(1);
+            }
+            iD = Integer.parseInt(idP);
+            return iD;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error " + ex);
+            return 0;
         }
     }
 }
